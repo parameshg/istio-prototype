@@ -1,0 +1,51 @@
+version: "3.6"
+services:
+  product:
+    image: parameshg/northwind.product:v1
+    ports:
+      - "8080:80"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    networks:
+      - northwind
+
+  order:
+    image: parameshg/northwind.order:v1
+    ports:
+      - "8090:80"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    networks:
+      - northwind
+
+  address:
+    image: parameshg/northwind.address:v1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    networks:
+      - northwind
+
+  payment:
+    image: parameshg/northwind.payment:v1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    networks:
+      - northwind
+
+networks:
+  northwind:
+    name: northwind
+    driver: overlay
+
+# logging:
+  # driver: syslog
+  # options:
+    # syslog-address: "udp://0.0.0.0:5000"
