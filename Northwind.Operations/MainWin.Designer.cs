@@ -46,7 +46,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnDeployOrderService = new System.Windows.Forms.Button();
             this.cbOrderServiceImage = new System.Windows.Forms.ComboBox();
-            this.btnOrderServiceRollback = new System.Windows.Forms.Button();
+            this.btnRollbackOrderService = new System.Windows.Forms.Button();
             this.gbProductService = new System.Windows.Forms.GroupBox();
             this.tlpProductService = new System.Windows.Forms.TableLayoutPanel();
             this.btnDeployProductService = new System.Windows.Forms.Button();
@@ -56,6 +56,13 @@
             this.txtLogs = new System.Windows.Forms.RichTextBox();
             this.gbEndpoint = new System.Windows.Forms.GroupBox();
             this.txtEndpoint = new System.Windows.Forms.TextBox();
+            this.gbMesh = new System.Windows.Forms.GroupBox();
+            this.tlpMesh = new System.Windows.Forms.TableLayoutPanel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnDeployMeshMaster = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tlpMain.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -69,22 +76,26 @@
             this.tlpProductService.SuspendLayout();
             this.gbLogs.SuspendLayout();
             this.gbEndpoint.SuspendLayout();
+            this.gbMesh.SuspendLayout();
+            this.tlpMesh.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpMain
             // 
             this.tlpMain.ColumnCount = 1;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Controls.Add(this.StatusBar, 0, 4);
+            this.tlpMain.Controls.Add(this.StatusBar, 0, 5);
             this.tlpMain.Controls.Add(this.tableLayoutPanel1, 0, 1);
-            this.tlpMain.Controls.Add(this.gbLogs, 0, 3);
+            this.tlpMain.Controls.Add(this.gbLogs, 0, 4);
             this.tlpMain.Controls.Add(this.gbEndpoint, 0, 0);
+            this.tlpMain.Controls.Add(this.gbMesh, 0, 2);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(0, 0);
             this.tlpMain.Name = "tlpMain";
-            this.tlpMain.RowCount = 5;
+            this.tlpMain.RowCount = 6;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -171,6 +182,7 @@
             this.btnDeployAddressService.TabIndex = 0;
             this.btnDeployAddressService.Text = "Deploy";
             this.btnDeployAddressService.UseVisualStyleBackColor = true;
+            this.btnDeployAddressService.Click += new System.EventHandler(this.OnDeployAddressService);
             // 
             // cbAddressServiceImage
             // 
@@ -187,6 +199,7 @@
             this.cbAddressServiceImage.Name = "cbAddressServiceImage";
             this.cbAddressServiceImage.Size = new System.Drawing.Size(223, 24);
             this.cbAddressServiceImage.TabIndex = 1;
+            this.cbAddressServiceImage.SelectedIndexChanged += new System.EventHandler(this.OnAddressServiceChanged);
             // 
             // btnRollbackAddressService
             // 
@@ -197,6 +210,7 @@
             this.btnRollbackAddressService.TabIndex = 2;
             this.btnRollbackAddressService.Text = "Rollback";
             this.btnRollbackAddressService.UseVisualStyleBackColor = true;
+            this.btnRollbackAddressService.Click += new System.EventHandler(this.OnRollbackAddressService);
             // 
             // gbPaymentService
             // 
@@ -236,6 +250,7 @@
             this.btnDeployPaymentService.TabIndex = 0;
             this.btnDeployPaymentService.Text = "Deploy";
             this.btnDeployPaymentService.UseVisualStyleBackColor = true;
+            this.btnDeployPaymentService.Click += new System.EventHandler(this.OnDeployPaymentService);
             // 
             // cbPaymentServiceImage
             // 
@@ -251,6 +266,7 @@
             this.cbPaymentServiceImage.Name = "cbPaymentServiceImage";
             this.cbPaymentServiceImage.Size = new System.Drawing.Size(223, 24);
             this.cbPaymentServiceImage.TabIndex = 1;
+            this.cbPaymentServiceImage.SelectedIndexChanged += new System.EventHandler(this.OnPaymentServiceChanged);
             // 
             // btnRollbackPaymentService
             // 
@@ -261,6 +277,7 @@
             this.btnRollbackPaymentService.TabIndex = 2;
             this.btnRollbackPaymentService.Text = "Rollback";
             this.btnRollbackPaymentService.UseVisualStyleBackColor = true;
+            this.btnRollbackPaymentService.Click += new System.EventHandler(this.OnRollbackPaymentService);
             // 
             // gbOrderService
             // 
@@ -280,7 +297,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnDeployOrderService, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.cbOrderServiceImage, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnOrderServiceRollback, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btnRollbackOrderService, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
@@ -300,6 +317,7 @@
             this.btnDeployOrderService.TabIndex = 0;
             this.btnDeployOrderService.Text = "Deploy";
             this.btnDeployOrderService.UseVisualStyleBackColor = true;
+            this.btnDeployOrderService.Click += new System.EventHandler(this.OnDeployOrderService);
             // 
             // cbOrderServiceImage
             // 
@@ -314,16 +332,18 @@
             this.cbOrderServiceImage.Name = "cbOrderServiceImage";
             this.cbOrderServiceImage.Size = new System.Drawing.Size(223, 24);
             this.cbOrderServiceImage.TabIndex = 1;
+            this.cbOrderServiceImage.SelectedIndexChanged += new System.EventHandler(this.OnOrderServiceChanged);
             // 
-            // btnOrderServiceRollback
+            // btnRollbackOrderService
             // 
-            this.btnOrderServiceRollback.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOrderServiceRollback.Location = new System.Drawing.Point(117, 33);
-            this.btnOrderServiceRollback.Name = "btnOrderServiceRollback";
-            this.btnOrderServiceRollback.Size = new System.Drawing.Size(109, 24);
-            this.btnOrderServiceRollback.TabIndex = 2;
-            this.btnOrderServiceRollback.Text = "Rollback";
-            this.btnOrderServiceRollback.UseVisualStyleBackColor = true;
+            this.btnRollbackOrderService.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRollbackOrderService.Location = new System.Drawing.Point(117, 33);
+            this.btnRollbackOrderService.Name = "btnRollbackOrderService";
+            this.btnRollbackOrderService.Size = new System.Drawing.Size(109, 24);
+            this.btnRollbackOrderService.TabIndex = 2;
+            this.btnRollbackOrderService.Text = "Rollback";
+            this.btnRollbackOrderService.UseVisualStyleBackColor = true;
+            this.btnRollbackOrderService.Click += new System.EventHandler(this.OnOrderServiceRollback);
             // 
             // gbProductService
             // 
@@ -363,6 +383,7 @@
             this.btnDeployProductService.TabIndex = 0;
             this.btnDeployProductService.Text = "Deploy";
             this.btnDeployProductService.UseVisualStyleBackColor = true;
+            this.btnDeployProductService.Click += new System.EventHandler(this.OnDeployProductService);
             // 
             // cbProductServiceImage
             // 
@@ -377,6 +398,7 @@
             this.cbProductServiceImage.Name = "cbProductServiceImage";
             this.cbProductServiceImage.Size = new System.Drawing.Size(223, 24);
             this.cbProductServiceImage.TabIndex = 1;
+            this.cbProductServiceImage.SelectedIndexChanged += new System.EventHandler(this.OnProductServiceChanged);
             // 
             // btnRollbackProductService
             // 
@@ -387,14 +409,15 @@
             this.btnRollbackProductService.TabIndex = 2;
             this.btnRollbackProductService.Text = "Rollback";
             this.btnRollbackProductService.UseVisualStyleBackColor = true;
+            this.btnRollbackProductService.Click += new System.EventHandler(this.OnRollbackProductService);
             // 
             // gbLogs
             // 
             this.gbLogs.Controls.Add(this.txtLogs);
             this.gbLogs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbLogs.Location = new System.Drawing.Point(3, 353);
+            this.gbLogs.Location = new System.Drawing.Point(3, 403);
             this.gbLogs.Name = "gbLogs";
-            this.gbLogs.Size = new System.Drawing.Size(958, 209);
+            this.gbLogs.Size = new System.Drawing.Size(958, 159);
             this.gbLogs.TabIndex = 2;
             this.gbLogs.TabStop = false;
             this.gbLogs.Text = "Logs";
@@ -404,7 +427,7 @@
             this.txtLogs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLogs.Location = new System.Drawing.Point(3, 16);
             this.txtLogs.Name = "txtLogs";
-            this.txtLogs.Size = new System.Drawing.Size(952, 190);
+            this.txtLogs.Size = new System.Drawing.Size(952, 140);
             this.txtLogs.TabIndex = 0;
             this.txtLogs.Text = "";
             // 
@@ -425,8 +448,97 @@
             this.txtEndpoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEndpoint.Location = new System.Drawing.Point(3, 16);
             this.txtEndpoint.Name = "txtEndpoint";
+            this.txtEndpoint.ReadOnly = true;
             this.txtEndpoint.Size = new System.Drawing.Size(952, 23);
             this.txtEndpoint.TabIndex = 0;
+            // 
+            // gbMesh
+            // 
+            this.gbMesh.Controls.Add(this.tlpMesh);
+            this.gbMesh.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbMesh.Location = new System.Drawing.Point(3, 138);
+            this.gbMesh.Name = "gbMesh";
+            this.gbMesh.Size = new System.Drawing.Size(958, 94);
+            this.gbMesh.TabIndex = 4;
+            this.gbMesh.TabStop = false;
+            this.gbMesh.Text = "Service Mesh";
+            // 
+            // tlpMesh
+            // 
+            this.tlpMesh.ColumnCount = 5;
+            this.tlpMesh.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMesh.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMesh.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMesh.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMesh.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMesh.Controls.Add(this.button4, 4, 0);
+            this.tlpMesh.Controls.Add(this.button3, 3, 0);
+            this.tlpMesh.Controls.Add(this.button2, 2, 0);
+            this.tlpMesh.Controls.Add(this.btnDeployMeshMaster, 0, 0);
+            this.tlpMesh.Controls.Add(this.button1, 1, 0);
+            this.tlpMesh.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpMesh.Location = new System.Drawing.Point(3, 16);
+            this.tlpMesh.Margin = new System.Windows.Forms.Padding(0);
+            this.tlpMesh.Name = "tlpMesh";
+            this.tlpMesh.RowCount = 1;
+            this.tlpMesh.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpMesh.Size = new System.Drawing.Size(952, 75);
+            this.tlpMesh.TabIndex = 0;
+            // 
+            // button4
+            // 
+            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(763, 3);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(186, 69);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Install Address Sidecar";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(573, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(184, 69);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Install Payment Sidecar";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(383, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(184, 69);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Install Order Sidecar";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // btnDeployMeshMaster
+            // 
+            this.btnDeployMeshMaster.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeployMeshMaster.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeployMeshMaster.Location = new System.Drawing.Point(3, 3);
+            this.btnDeployMeshMaster.Name = "btnDeployMeshMaster";
+            this.btnDeployMeshMaster.Size = new System.Drawing.Size(184, 69);
+            this.btnDeployMeshMaster.TabIndex = 0;
+            this.btnDeployMeshMaster.Text = "Install Istio Master";
+            this.btnDeployMeshMaster.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(193, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(184, 69);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Install Product Sidecar";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainWin
             // 
@@ -437,6 +549,7 @@
             this.Name = "MainWin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Northwind: Operations";
+            this.Load += new System.EventHandler(this.OnLoad);
             this.tlpMain.ResumeLayout(false);
             this.tlpMain.PerformLayout();
             this.StatusBar.ResumeLayout(false);
@@ -453,6 +566,8 @@
             this.gbLogs.ResumeLayout(false);
             this.gbEndpoint.ResumeLayout(false);
             this.gbEndpoint.PerformLayout();
+            this.gbMesh.ResumeLayout(false);
+            this.tlpMesh.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -483,10 +598,17 @@
         private System.Windows.Forms.Button btnRollbackProductService;
         private System.Windows.Forms.GroupBox gbEndpoint;
         private System.Windows.Forms.TextBox txtEndpoint;
-        private System.Windows.Forms.Button btnOrderServiceRollback;
+        private System.Windows.Forms.Button btnRollbackOrderService;
         private System.Windows.Forms.Button btnRollbackPaymentService;
         private System.Windows.Forms.Button btnRollbackAddressService;
         private System.Windows.Forms.ToolStripStatusLabel lblStatusMessage;
+        private System.Windows.Forms.GroupBox gbMesh;
+        private System.Windows.Forms.TableLayoutPanel tlpMesh;
+        private System.Windows.Forms.Button btnDeployMeshMaster;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 
