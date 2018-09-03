@@ -36,8 +36,8 @@
             this.tbDelay = new System.Windows.Forms.TrackBar();
             this.lblDelayInterval = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
-            this.gbService = new System.Windows.Forms.GroupBox();
-            this.txtEndpoint = new System.Windows.Forms.TextBox();
+            this.gbProductEndpoint = new System.Windows.Forms.GroupBox();
+            this.txtProductEndpoint = new System.Windows.Forms.TextBox();
             this.Status = new System.Windows.Forms.StatusStrip();
             this.lblStatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblUsers = new System.Windows.Forms.ToolStripStatusLabel();
@@ -54,18 +54,21 @@
             this.tlpOptions = new System.Windows.Forms.TableLayoutPanel();
             this.lblUsersCount = new System.Windows.Forms.Label();
             this.tbUsers = new System.Windows.Forms.TrackBar();
+            this.gbOrderEndpoint = new System.Windows.Forms.GroupBox();
+            this.txtOrderEndpoint = new System.Windows.Forms.TextBox();
             this.tlpMain.SuspendLayout();
             this.gbArea.SuspendLayout();
             this.gbDelay.SuspendLayout();
             this.tlpTransactionDelay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbDelay)).BeginInit();
-            this.gbService.SuspendLayout();
+            this.gbProductEndpoint.SuspendLayout();
             this.Status.SuspendLayout();
             this.gbLogs.SuspendLayout();
             this.gbPayment.SuspendLayout();
             this.gbUsers.SuspendLayout();
             this.tlpOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbUsers)).BeginInit();
+            this.gbOrderEndpoint.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpMain
@@ -73,10 +76,11 @@
             this.tlpMain.ColumnCount = 2;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpMain.Controls.Add(this.gbOrderEndpoint, 1, 0);
             this.tlpMain.Controls.Add(this.gbArea, 1, 3);
             this.tlpMain.Controls.Add(this.gbDelay, 0, 2);
             this.tlpMain.Controls.Add(this.btnStart, 1, 5);
-            this.tlpMain.Controls.Add(this.gbService, 0, 0);
+            this.tlpMain.Controls.Add(this.gbProductEndpoint, 0, 0);
             this.tlpMain.Controls.Add(this.Status, 0, 6);
             this.tlpMain.Controls.Add(this.gbLogs, 0, 4);
             this.tlpMain.Controls.Add(this.gbPayment, 0, 3);
@@ -187,27 +191,26 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.OnStart);
             // 
-            // gbService
+            // gbProductEndpoint
             // 
-            this.tlpMain.SetColumnSpan(this.gbService, 2);
-            this.gbService.Controls.Add(this.txtEndpoint);
-            this.gbService.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbService.Location = new System.Drawing.Point(3, 3);
-            this.gbService.Name = "gbService";
-            this.gbService.Size = new System.Drawing.Size(778, 44);
-            this.gbService.TabIndex = 0;
-            this.gbService.TabStop = false;
-            this.gbService.Text = "Service Endpoint";
+            this.gbProductEndpoint.Controls.Add(this.txtProductEndpoint);
+            this.gbProductEndpoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbProductEndpoint.Location = new System.Drawing.Point(3, 3);
+            this.gbProductEndpoint.Name = "gbProductEndpoint";
+            this.gbProductEndpoint.Size = new System.Drawing.Size(386, 44);
+            this.gbProductEndpoint.TabIndex = 0;
+            this.gbProductEndpoint.TabStop = false;
+            this.gbProductEndpoint.Text = "Product Endpoint";
             // 
-            // txtEndpoint
+            // txtProductEndpoint
             // 
-            this.txtEndpoint.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtEndpoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEndpoint.Location = new System.Drawing.Point(3, 16);
-            this.txtEndpoint.Name = "txtEndpoint";
-            this.txtEndpoint.Size = new System.Drawing.Size(772, 23);
-            this.txtEndpoint.TabIndex = 0;
-            this.txtEndpoint.Text = "http://localhost";
+            this.txtProductEndpoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtProductEndpoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtProductEndpoint.Location = new System.Drawing.Point(3, 16);
+            this.txtProductEndpoint.Name = "txtProductEndpoint";
+            this.txtProductEndpoint.Size = new System.Drawing.Size(380, 23);
+            this.txtProductEndpoint.TabIndex = 0;
+            this.txtProductEndpoint.Text = "http://localhost";
             // 
             // Status
             // 
@@ -402,6 +405,27 @@
             this.tbUsers.Value = 1;
             this.tbUsers.ValueChanged += new System.EventHandler(this.OnUsersChanged);
             // 
+            // gbOrderEndpoint
+            // 
+            this.gbOrderEndpoint.Controls.Add(this.txtOrderEndpoint);
+            this.gbOrderEndpoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbOrderEndpoint.Location = new System.Drawing.Point(395, 3);
+            this.gbOrderEndpoint.Name = "gbOrderEndpoint";
+            this.gbOrderEndpoint.Size = new System.Drawing.Size(386, 44);
+            this.gbOrderEndpoint.TabIndex = 1;
+            this.gbOrderEndpoint.TabStop = false;
+            this.gbOrderEndpoint.Text = "Order Endpoint";
+            // 
+            // txtOrderEndpoint
+            // 
+            this.txtOrderEndpoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtOrderEndpoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOrderEndpoint.Location = new System.Drawing.Point(3, 16);
+            this.txtOrderEndpoint.Name = "txtOrderEndpoint";
+            this.txtOrderEndpoint.Size = new System.Drawing.Size(380, 23);
+            this.txtOrderEndpoint.TabIndex = 0;
+            this.txtOrderEndpoint.Text = "http://localhost";
+            // 
             // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,8 +443,8 @@
             this.tlpTransactionDelay.ResumeLayout(false);
             this.tlpTransactionDelay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbDelay)).EndInit();
-            this.gbService.ResumeLayout(false);
-            this.gbService.PerformLayout();
+            this.gbProductEndpoint.ResumeLayout(false);
+            this.gbProductEndpoint.PerformLayout();
             this.Status.ResumeLayout(false);
             this.Status.PerformLayout();
             this.gbLogs.ResumeLayout(false);
@@ -429,6 +453,8 @@
             this.tlpOptions.ResumeLayout(false);
             this.tlpOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbUsers)).EndInit();
+            this.gbOrderEndpoint.ResumeLayout(false);
+            this.gbOrderEndpoint.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -436,8 +462,8 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tlpMain;
-        private System.Windows.Forms.GroupBox gbService;
-        private System.Windows.Forms.TextBox txtEndpoint;
+        private System.Windows.Forms.GroupBox gbProductEndpoint;
+        private System.Windows.Forms.TextBox txtProductEndpoint;
         private System.Windows.Forms.StatusStrip Status;
         private System.Windows.Forms.ToolStripStatusLabel lblStatusMessage;
         private System.Windows.Forms.ToolStripStatusLabel lblRequestSent;
@@ -461,6 +487,8 @@
         private System.Windows.Forms.GroupBox gbArea;
         private System.Windows.Forms.CheckedListBox lstServiceArea;
         private System.Windows.Forms.TableLayoutPanel tlpTransactionDelay;
+        private System.Windows.Forms.GroupBox gbOrderEndpoint;
+        private System.Windows.Forms.TextBox txtOrderEndpoint;
     }
 }
 

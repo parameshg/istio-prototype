@@ -52,7 +52,7 @@ namespace Northwind.Users
             lblUsers.Text = $"Users: {tbUsers.Value}";
             lblUsersCount.Text = tbUsers.Value.ToString();
 
-            if (!txtEndpoint.Enabled)
+            if (!txtProductEndpoint.Enabled)
             {
                 if (Timers.Count < tbUsers.Value)
                 {
@@ -61,7 +61,8 @@ namespace Northwind.Users
                         var timer = new Timer()
                         {
                             Interval = tbDelay.Value,
-                            Enabled = true
+                            Enabled = true,
+                            Tag = Timers.Count + 1
                         };
                         timer.Tick += OnTimer;
                         Timers.Add(timer);
@@ -82,14 +83,16 @@ namespace Northwind.Users
 
         private void OnStart(object sender, EventArgs e)
         {
-            txtEndpoint.Enabled = false;
+            txtProductEndpoint.Enabled = false;
+            txtOrderEndpoint.Enabled = false;
             btnStart.Enabled = false;
             btnStop.Enabled = true;
 
             var o = new Timer()
             {
                 Interval = tbDelay.Value,
-                Enabled = true
+                Enabled = true,
+                Tag = 1
             };
 
             o.Tick += OnTimer;
@@ -107,14 +110,15 @@ namespace Northwind.Users
 
             btnStart.Enabled = true;
             btnStop.Enabled = false;
-            txtEndpoint.Enabled = true;
+            txtProductEndpoint.Enabled = true;
+            txtOrderEndpoint.Enabled = true;
         }
 
         private void OnTimer(object sender, EventArgs e)
         {
-            var transaction = new Transaction(txtEndpoint.Text, GenerateCreditCardNumber(), GeneratePostalCode());
+            var transaction = new Transaction(txtProductEndpoint.Text, txtOrderEndpoint.Text, GenerateCreditCardNumber(), GeneratePostalCode());
 
-            txtLogs.AppendText($"Searching for {transaction.Search}... ");
+            txtLogs.AppendText($"User-{((Timer)sender).Tag.ToString()}: Searching for {transaction.Search}... ");
 
             var result = transaction.Execute();
 
@@ -135,7 +139,8 @@ namespace Northwind.Users
 
         private void OnLoad(object sender, EventArgs e)
         {
-            txtEndpoint.Enabled = true;
+            txtProductEndpoint.Enabled = true;
+            txtOrderEndpoint.Enabled = true;
             btnStart.Enabled = true;
             btnStop.Enabled = false;
         }

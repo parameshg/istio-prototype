@@ -11,19 +11,23 @@ namespace Northwind.Users
 
         public string Search { get; private set; }
 
-        private string Endpoint { get; }
+        private string ProductEndpoint { get; }
 
-        public string Payment { get; }
+        private string OrderEndpoint { get; }
 
-        public string Zip { get; }
+        private string Payment { get; }
+
+        private string Zip { get; }
 
         private List<string> Pattern { get; set; }
 
-        public Transaction(string endpoint, string payment, string zip)
+        public Transaction(string productEndpoint, string orderEndpoint, string payment, string zip)
         {
-            Endpoint = endpoint ?? throw new ArgumentNullException(nameof(endpoint));
+            ProductEndpoint = productEndpoint ?? throw new ArgumentNullException(nameof(productEndpoint));
+            OrderEndpoint = orderEndpoint ?? throw new ArgumentNullException(nameof(orderEndpoint));
             Payment = payment ?? throw new ArgumentNullException(nameof(payment));
             Zip = zip ?? throw new ArgumentNullException(nameof(zip));
+
             Pattern = new List<string>() { "chocolate", "laundry", "whiskey", "scotch", "champagne", "lacura", "degreaser", "SPF", "skin", "coffee" };
             Search = Pattern[rnd.Next(0, 9)];
         }
@@ -34,7 +38,7 @@ namespace Northwind.Users
 
             try
             {
-                var server = new RestClient(Endpoint + ":8081");
+                var server = new RestClient(ProductEndpoint);
                 var request = new RestRequest("/search", Method.GET);
                 request.AddQueryParameter("q", Search);
 
@@ -73,7 +77,7 @@ namespace Northwind.Users
 
             try
             {
-                var server = new RestClient(Endpoint + ":8091");
+                var server = new RestClient(OrderEndpoint);
                 var request = new RestRequest("/order", Method.POST);
 
                 request.RequestFormat = DataFormat.Json;

@@ -17,7 +17,7 @@ namespace NorthWind.Services.Order.Controllers
             {
                 // Validate Payment
                 {
-                    var payment = new RestClient("http://payment");
+                    var payment = new RestClient("http://payment.northwind.svc.cluster.local");
 
                     var request = new RestRequest("/validate", Method.POST);
                     request.RequestFormat = DataFormat.Json;
@@ -36,7 +36,7 @@ namespace NorthWind.Services.Order.Controllers
                 {
                     // Validate Address
                     {
-                        var address = new RestClient("http://address");
+                        var address = new RestClient("http://address.northwind.svc.cluster.local");
 
                         var request = new RestRequest("/validate", Method.POST);
                         request.RequestFormat = DataFormat.Json;
@@ -61,7 +61,7 @@ namespace NorthWind.Services.Order.Controllers
                 {
                     // Fetch Product
                     {
-                        var product = new RestClient("http://product");
+                        var product = new RestClient("http://product.northwind.svc.cluster.local");
                         var request = new RestRequest($"/products/{order.Product.ToString()}", Method.GET);
 
                         var response = product.Execute<ProductDetail>(request);

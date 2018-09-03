@@ -28,7 +28,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{8D099B
 		docker-stack.yml = docker-stack.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Operations.Api", "Northwind.Operations.Api\Northwind.Operations.Api.csproj", "{D0861B47-4FF0-40D9-AE61-BE405B9ED6E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Operations.Api", "Northwind.Operations.Api\Northwind.Operations.Api.csproj", "{D0861B47-4FF0-40D9-AE61-BE405B9ED6E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Operations.Shared", "Northwind.Operations.Shared\Northwind.Operations.Shared.csproj", "{7C0CAB89-60D1-433C-B59D-4155A0B85763}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{D0861B47-4FF0-40D9-AE61-BE405B9ED6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0861B47-4FF0-40D9-AE61-BE405B9ED6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0861B47-4FF0-40D9-AE61-BE405B9ED6E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C0CAB89-60D1-433C-B59D-4155A0B85763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C0CAB89-60D1-433C-B59D-4155A0B85763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C0CAB89-60D1-433C-B59D-4155A0B85763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C0CAB89-60D1-433C-B59D-4155A0B85763}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
