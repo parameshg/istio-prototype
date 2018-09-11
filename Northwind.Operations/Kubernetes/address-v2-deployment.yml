@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: address
+  labels:
+    api: address
+    version: "2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: address
+      version: "2"
+  template:
+    metadata:
+      name: address
+      labels:
+        api: address
+        version: "2"
+    spec:
+      containers:
+        - name: address
+          image: parameshg/northwind.address:v2
+          ports:
+            - containerPort: 80

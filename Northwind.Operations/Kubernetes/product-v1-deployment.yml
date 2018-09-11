@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+  labels:
+    api: product
+    version: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: product
+      version: "1"
+  template:
+    metadata:
+      name: product
+      labels:
+        api: product
+        version: "1"
+    spec:
+      containers:
+        - name: product
+          image: "parameshg/northwind.product:v1"
+          ports:
+            - containerPort: 80

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+  labels:
+    api: order
+    version: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: order
+      version: "1"
+  template:
+    metadata:
+      name: order
+      labels:
+        api: order
+        version: "1"
+    spec:
+      containers:
+        - name: order
+          image: parameshg/northwind.order:v1
+          ports:
+            - containerPort: 80

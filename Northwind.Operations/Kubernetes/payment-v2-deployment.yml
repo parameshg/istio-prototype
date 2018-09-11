@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    api: payment
+    version: "2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: payment
+      version: "2"
+  template:
+    metadata:
+      name: payment
+      labels:
+        api: payment
+        version: "2"
+    spec:
+      containers:
+        - name: payment
+          image: parameshg/northwind.payment:v2
+          ports:
+            - containerPort: 80
