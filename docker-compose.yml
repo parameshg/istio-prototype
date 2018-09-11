@@ -13,13 +13,11 @@ services:
       context: .
       dockerfile: Northwind.Services.Order/Dockerfile
 
-
   northwind.address.v1:
     image: parameshg/northwind.address:v1
     build:
       context: .
       dockerfile: Northwind.Services.Address/Dockerfile
-
 
   northwind.address.v2:
     image: parameshg/northwind.address:v2
@@ -27,13 +25,11 @@ services:
       context: .
       dockerfile: Northwind.Services.Address.v2/Dockerfile
 
-
   northwind.payment.v1:
     image: parameshg/northwind.payment:v1
     build:
       context: .
       dockerfile: Northwind.Services.Payment/Dockerfile
-
 
   northwind.payment.v2:
     image: parameshg/northwind.payment:v2
@@ -41,10 +37,8 @@ services:
       context: .
       dockerfile: Northwind.Services.Payment.v2/Dockerfile
 
-
   northwind.address.v3:
     image: parameshg/northwind.address:v3
     build:
       context: .
       dockerfile: Northwind.Services.Address.v3/Dockerfile
-

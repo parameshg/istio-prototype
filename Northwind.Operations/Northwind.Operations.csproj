@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CreditCardValidator, Version=1.4.1.178, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CreditCardValidator.1.4.1\lib\net40\CreditCardValidator.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -41,6 +44,9 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,17 +58,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWin.cs">
+    <Compile Include="Model\OrderRequest.cs" />
+    <Compile Include="Model\OrderResponse.cs" />
+    <Compile Include="Model\ProductDetail.cs" />
+    <Compile Include="Provisioner.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWin.Designer.cs">
-      <DependentUpon>MainWin.cs</DependentUpon>
+    <Compile Include="Provisioner.Designer.cs">
+      <DependentUpon>Provisioner.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Response.cs" />
-    <EmbeddedResource Include="MainWin.resx">
-      <DependentUpon>MainWin.cs</DependentUpon>
+    <Compile Include="Model\Response.cs" />
+    <Compile Include="Provisioner.Events.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>Provisioner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Transaction.cs" />
+    <Compile Include="TrafficGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrafficGenerator.Designer.cs">
+      <DependentUpon>TrafficGenerator.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Provisioner.resx">
+      <DependentUpon>Provisioner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -73,6 +93,49 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TrafficGenerator.resx">
+      <DependentUpon>TrafficGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Kubernetes\address-v1-deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\helm.yml" />
+    <None Include="Kubernetes\ingress-controller.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\ingress.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\payment-v1-service.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\address-v2-deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\address-v3-deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\order-v1-deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\address-v1-service.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\payment-v1-deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\payment-v2-deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\order-v1-service.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\product-v1-service.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\product-v1-deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -83,15 +146,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Swarm\docker-stack.yml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Northwind.Operations.Shared\Northwind.Operations.Shared.csproj">
-      <Project>{7c0cab89-60d1-433c-b59d-4155a0b85763}</Project>
-      <Name>Northwind.Operations.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

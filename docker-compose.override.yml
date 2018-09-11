@@ -13,13 +13,11 @@ services:
     ports:
       - "80"
 
-
   northwind.address.v1:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
-
 
   northwind.address.v2:
     environment:
@@ -27,13 +25,11 @@ services:
     ports:
       - "80"
 
-
   northwind.payment.v1:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
-
 
   northwind.payment.v2:
     environment:
@@ -41,10 +37,8 @@ services:
     ports:
       - "80"
 
-
   northwind.address.v3:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
-

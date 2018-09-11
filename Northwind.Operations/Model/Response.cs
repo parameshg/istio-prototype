@@ -1,4 +1,4 @@
-﻿namespace Northwind.Operations
+﻿namespace Northwind.Operations.Model
 {
     public class Response
     {
