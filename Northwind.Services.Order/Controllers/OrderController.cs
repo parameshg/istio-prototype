@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Northwind.Services.Order.Model;
 using RestSharp;
 
@@ -8,6 +9,13 @@ namespace NorthWind.Services.Order.Controllers
     [Route("")]
     public class OrderController : Controller
     {
+        public ILogger Logger { get; }
+
+        public OrderController(ILogger<OrderController> logger)
+        {
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         [HttpPost("order")]
         public OrderResponse Post([FromBody] OrderRequest order)
         {
@@ -20,10 +28,13 @@ namespace NorthWind.Services.Order.Controllers
                     var payment = new RestClient("http://payment.default.svc.cluster.local");
 
                     var request = new RestRequest("/validate", Method.POST);
+                    Logger.LogDebug($"Executing {request.Method.ToString()} to {payment.BaseUrl.ToString()} on {request.Resource}");
+
                     request.RequestFormat = DataFormat.Json;
                     request.AddBody(new { CreditCardNumber = order.Payment });
 
                     var response = payment.Execute<ValidationResponse>(request);
+                    Logger.LogDebug(response.Content);
 
                     if (response != null && response.Data != null)
                     {
@@ -39,6 +50,7 @@ namespace NorthWind.Services.Order.Controllers
                         var address = new RestClient("http://address.default.svc.cluster.local");
 
                         var request = new RestRequest("/validate", Method.POST);
+                        Logger.LogDebug($"Executing {request.Method.ToString()} to {address.BaseUrl.ToString()} on {request.Resource}");
                         request.RequestFormat = DataFormat.Json;
                         request.AddBody(new
                         {
@@ -48,6 +60,7 @@ namespace NorthWind.Services.Order.Controllers
                         });
 
                         var response = address.Execute<ValidationResponse>(request);
+                        Logger.LogDebug(response.Content);
 
                         if (response != null && response.Data != null)
                         {
@@ -63,8 +76,11 @@ namespace NorthWind.Services.Order.Controllers
                     {
                         var product = new RestClient("http://product.default.svc.cluster.local");
                         var request = new RestRequest($"/products/{order.Product.ToString()}", Method.GET);
+                        Logger.LogDebug($"Executing {request.Method.ToString()} to {product.BaseUrl.ToString()} on {request.Resource}");
 
                         var response = product.Execute<ProductDetail>(request);
+                        Logger.LogDebug(response.Content);
+
                         result.Total = response.Data.Price * order.Quantity;
                     }
                 }
