@@ -21,5 +21,6 @@ spec:
       containers:
         - name: payment
           image: parameshg/northwind.payment:v2
+          imagePullPolicy: Always
           ports:
             - containerPort: 80

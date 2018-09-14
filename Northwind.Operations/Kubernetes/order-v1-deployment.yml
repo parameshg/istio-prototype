@@ -21,5 +21,6 @@ spec:
       containers:
         - name: order
           image: parameshg/northwind.order:v1
+          imagePullPolicy: Always
           ports:
             - containerPort: 80

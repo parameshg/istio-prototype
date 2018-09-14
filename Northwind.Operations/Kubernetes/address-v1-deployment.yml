@@ -21,5 +21,6 @@ spec:
       containers:
         - name: address
           image: parameshg/northwind.address:v1
+          imagePullPolicy: Always
           ports:
             - containerPort: 80

@@ -21,5 +21,6 @@ spec:
       containers:
         - name: product
           image: "parameshg/northwind.product:v1"
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
