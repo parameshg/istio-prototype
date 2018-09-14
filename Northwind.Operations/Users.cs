@@ -7,7 +7,7 @@ using Northwind.Operations.Services;
 
 namespace Northwind.Operations
 {
-    public partial class TrafficGenerator : Form
+    public partial class Users : Form
     {
         private Random rnd = new Random();
 
@@ -29,7 +29,7 @@ namespace Northwind.Operations
 
         private List<(int From, int To)> Areas { get; set; }
 
-        public TrafficGenerator()
+        public Users()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;

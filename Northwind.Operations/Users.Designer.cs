@@ -1,6 +1,6 @@
 ﻿namespace Northwind.Operations
 {
-    partial class TrafficGenerator
+    partial class Users
     {
         /// <summary>
         /// Required designer variable.

@@ -10,7 +10,7 @@ namespace Northwind.Operations
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Provisioner());
+            Application.Run(new MainWin());
         }
     }
 }

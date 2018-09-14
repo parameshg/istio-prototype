@@ -1,6 +1,6 @@
 ﻿namespace Northwind.Operations
 {
-    partial class Provisioner
+    partial class MainWin
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Provisioner));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
             this.tlpDashboard = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbAddressApi = new System.Windows.Forms.GroupBox();
@@ -74,8 +74,8 @@
             this.tabTerminal = new System.Windows.Forms.TabPage();
             this.txtTerminal = new System.Windows.Forms.RichTextBox();
             this.tabComponents = new System.Windows.Forms.TabPage();
-            this.tlpComponents = new System.Windows.Forms.TableLayoutPanel();
             this.gbObjects = new System.Windows.Forms.GroupBox();
+            this.tlpComponents = new System.Windows.Forms.TableLayoutPanel();
             this.lstObjects = new System.Windows.Forms.ListView();
             this.colNamespace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -83,6 +83,21 @@
             this.colAddress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.tabTransaction = new System.Windows.Forms.TabPage();
+            this.tlpTransaction = new System.Windows.Forms.TableLayoutPanel();
+            this.txtResponse = new System.Windows.Forms.RichTextBox();
+            this.gbOrder = new System.Windows.Forms.GroupBox();
+            this.tlpOrder = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSubmitOrder = new System.Windows.Forms.Button();
+            this.cbProducts = new System.Windows.Forms.ComboBox();
+            this.cbPayment = new System.Windows.Forms.ComboBox();
+            this.cbArea = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.gbProduct = new System.Windows.Forms.GroupBox();
+            this.tlpProduct = new System.Windows.Forms.TableLayoutPanel();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnProductSearch = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.StatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -106,9 +121,15 @@
             this.tabDashboard.SuspendLayout();
             this.tabTerminal.SuspendLayout();
             this.tabComponents.SuspendLayout();
-            this.tlpComponents.SuspendLayout();
             this.gbObjects.SuspendLayout();
+            this.tlpComponents.SuspendLayout();
             this.ToolBar.SuspendLayout();
+            this.tabTransaction.SuspendLayout();
+            this.tlpTransaction.SuspendLayout();
+            this.gbOrder.SuspendLayout();
+            this.tlpOrder.SuspendLayout();
+            this.gbProduct.SuspendLayout();
+            this.tlpProduct.SuspendLayout();
             this.tlpMain.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.SuspendLayout();
@@ -661,6 +682,7 @@
             this.tabCtrlMain.Controls.Add(this.tabDashboard);
             this.tabCtrlMain.Controls.Add(this.tabTerminal);
             this.tabCtrlMain.Controls.Add(this.tabComponents);
+            this.tabCtrlMain.Controls.Add(this.tabTransaction);
             this.tabCtrlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabCtrlMain.Location = new System.Drawing.Point(3, 3);
             this.tabCtrlMain.Name = "tabCtrlMain";
@@ -710,6 +732,17 @@
             this.tabComponents.Text = "Components";
             this.tabComponents.UseVisualStyleBackColor = true;
             // 
+            // gbObjects
+            // 
+            this.gbObjects.Controls.Add(this.tlpComponents);
+            this.gbObjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbObjects.Location = new System.Drawing.Point(0, 0);
+            this.gbObjects.Name = "gbObjects";
+            this.gbObjects.Size = new System.Drawing.Size(950, 604);
+            this.gbObjects.TabIndex = 7;
+            this.gbObjects.TabStop = false;
+            this.gbObjects.Text = "Kubernetes Components";
+            // 
             // tlpComponents
             // 
             this.tlpComponents.ColumnCount = 1;
@@ -725,17 +758,6 @@
             this.tlpComponents.Size = new System.Drawing.Size(944, 585);
             this.tlpComponents.TabIndex = 0;
             // 
-            // gbObjects
-            // 
-            this.gbObjects.Controls.Add(this.tlpComponents);
-            this.gbObjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbObjects.Location = new System.Drawing.Point(0, 0);
-            this.gbObjects.Name = "gbObjects";
-            this.gbObjects.Size = new System.Drawing.Size(950, 604);
-            this.gbObjects.TabIndex = 7;
-            this.gbObjects.TabStop = false;
-            this.gbObjects.Text = "Kubernetes Components";
-            // 
             // lstObjects
             // 
             this.lstObjects.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -744,6 +766,7 @@
             this.colName,
             this.colAddress});
             this.lstObjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstObjects.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstObjects.FullRowSelect = true;
             this.lstObjects.GridLines = true;
             this.lstObjects.Location = new System.Drawing.Point(3, 28);
@@ -796,6 +819,208 @@
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.Click += new System.EventHandler(this.OnRefresh);
             // 
+            // tabTransaction
+            // 
+            this.tabTransaction.Controls.Add(this.tlpTransaction);
+            this.tabTransaction.Location = new System.Drawing.Point(4, 4);
+            this.tabTransaction.Name = "tabTransaction";
+            this.tabTransaction.Size = new System.Drawing.Size(950, 604);
+            this.tabTransaction.TabIndex = 3;
+            this.tabTransaction.Text = "Transaction";
+            this.tabTransaction.UseVisualStyleBackColor = true;
+            // 
+            // tlpTransaction
+            // 
+            this.tlpTransaction.ColumnCount = 1;
+            this.tlpTransaction.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpTransaction.Controls.Add(this.txtResponse, 0, 2);
+            this.tlpTransaction.Controls.Add(this.gbOrder, 0, 1);
+            this.tlpTransaction.Controls.Add(this.gbProduct, 0, 0);
+            this.tlpTransaction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpTransaction.Location = new System.Drawing.Point(0, 0);
+            this.tlpTransaction.Name = "tlpTransaction";
+            this.tlpTransaction.RowCount = 3;
+            this.tlpTransaction.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tlpTransaction.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tlpTransaction.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpTransaction.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpTransaction.Size = new System.Drawing.Size(950, 604);
+            this.tlpTransaction.TabIndex = 0;
+            // 
+            // txtResponse
+            // 
+            this.txtResponse.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtResponse.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResponse.Location = new System.Drawing.Point(3, 123);
+            this.txtResponse.Name = "txtResponse";
+            this.txtResponse.Size = new System.Drawing.Size(944, 478);
+            this.txtResponse.TabIndex = 0;
+            this.txtResponse.Text = "";
+            // 
+            // gbOrder
+            // 
+            this.gbOrder.Controls.Add(this.tlpOrder);
+            this.gbOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbOrder.Location = new System.Drawing.Point(3, 63);
+            this.gbOrder.Name = "gbOrder";
+            this.gbOrder.Size = new System.Drawing.Size(944, 54);
+            this.gbOrder.TabIndex = 1;
+            this.gbOrder.TabStop = false;
+            this.gbOrder.Text = "Order";
+            // 
+            // tlpOrder
+            // 
+            this.tlpOrder.ColumnCount = 5;
+            this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlpOrder.Controls.Add(this.btnSubmitOrder, 3, 0);
+            this.tlpOrder.Controls.Add(this.cbProducts, 0, 0);
+            this.tlpOrder.Controls.Add(this.cbPayment, 1, 0);
+            this.tlpOrder.Controls.Add(this.cbArea, 2, 0);
+            this.tlpOrder.Controls.Add(this.button2, 4, 0);
+            this.tlpOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpOrder.Location = new System.Drawing.Point(3, 16);
+            this.tlpOrder.Margin = new System.Windows.Forms.Padding(0);
+            this.tlpOrder.Name = "tlpOrder";
+            this.tlpOrder.RowCount = 1;
+            this.tlpOrder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpOrder.Size = new System.Drawing.Size(938, 35);
+            this.tlpOrder.TabIndex = 4;
+            // 
+            // btnSubmitOrder
+            // 
+            this.btnSubmitOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSubmitOrder.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmitOrder.Location = new System.Drawing.Point(740, 3);
+            this.btnSubmitOrder.Name = "btnSubmitOrder";
+            this.btnSubmitOrder.Size = new System.Drawing.Size(94, 29);
+            this.btnSubmitOrder.TabIndex = 1;
+            this.btnSubmitOrder.Text = "Submit Order";
+            this.btnSubmitOrder.UseVisualStyleBackColor = true;
+            this.btnSubmitOrder.Click += new System.EventHandler(this.OnOrderSubmitted);
+            // 
+            // cbProducts
+            // 
+            this.cbProducts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbProducts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProducts.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProducts.FormattingEnabled = true;
+            this.cbProducts.Location = new System.Drawing.Point(3, 3);
+            this.cbProducts.Name = "cbProducts";
+            this.cbProducts.Size = new System.Drawing.Size(363, 27);
+            this.cbProducts.TabIndex = 0;
+            // 
+            // cbPayment
+            // 
+            this.cbPayment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbPayment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPayment.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPayment.FormattingEnabled = true;
+            this.cbPayment.Items.AddRange(new object[] {
+            "MasterCard",
+            "Maestro",
+            "Visa",
+            "AmericanExpress",
+            "DinersClub",
+            "Discover",
+            "Rupay"});
+            this.cbPayment.Location = new System.Drawing.Point(372, 3);
+            this.cbPayment.Name = "cbPayment";
+            this.cbPayment.Size = new System.Drawing.Size(178, 27);
+            this.cbPayment.TabIndex = 2;
+            // 
+            // cbArea
+            // 
+            this.cbArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbArea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbArea.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbArea.FormattingEnabled = true;
+            this.cbArea.Items.AddRange(new object[] {
+            "Central and Northern Sydney",
+            "Western Sydney and Blue Mountains",
+            "Greystanes - 2145 (Western Sydney)"});
+            this.cbArea.Location = new System.Drawing.Point(556, 3);
+            this.cbArea.Name = "cbArea";
+            this.cbArea.Size = new System.Drawing.Size(178, 27);
+            this.cbArea.TabIndex = 3;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(840, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(95, 29);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Health";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.OnOrderHealth);
+            // 
+            // gbProduct
+            // 
+            this.gbProduct.Controls.Add(this.tlpProduct);
+            this.gbProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbProduct.Location = new System.Drawing.Point(3, 3);
+            this.gbProduct.Name = "gbProduct";
+            this.gbProduct.Size = new System.Drawing.Size(944, 54);
+            this.gbProduct.TabIndex = 2;
+            this.gbProduct.TabStop = false;
+            this.gbProduct.Text = "Product";
+            // 
+            // tlpProduct
+            // 
+            this.tlpProduct.ColumnCount = 3;
+            this.tlpProduct.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpProduct.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlpProduct.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlpProduct.Controls.Add(this.txtSearch, 0, 0);
+            this.tlpProduct.Controls.Add(this.btnProductSearch, 1, 0);
+            this.tlpProduct.Controls.Add(this.button1, 2, 0);
+            this.tlpProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpProduct.Location = new System.Drawing.Point(3, 16);
+            this.tlpProduct.Margin = new System.Windows.Forms.Padding(0);
+            this.tlpProduct.Name = "tlpProduct";
+            this.tlpProduct.RowCount = 1;
+            this.tlpProduct.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpProduct.Size = new System.Drawing.Size(938, 35);
+            this.tlpProduct.TabIndex = 0;
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSearch.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Location = new System.Drawing.Point(3, 3);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(732, 27);
+            this.txtSearch.TabIndex = 0;
+            // 
+            // btnProductSearch
+            // 
+            this.btnProductSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnProductSearch.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProductSearch.Location = new System.Drawing.Point(741, 3);
+            this.btnProductSearch.Name = "btnProductSearch";
+            this.btnProductSearch.Size = new System.Drawing.Size(94, 29);
+            this.btnProductSearch.TabIndex = 1;
+            this.btnProductSearch.Text = "Search";
+            this.btnProductSearch.UseVisualStyleBackColor = true;
+            this.btnProductSearch.Click += new System.EventHandler(this.OnProductSearch);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(841, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 29);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Health";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.OnProductHealth);
+            // 
             // tlpMain
             // 
             this.tlpMain.ColumnCount = 1;
@@ -842,7 +1067,7 @@
             this.Controls.Add(this.tlpMain);
             this.Name = "Provisioner";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Northwind: Provisioner";
+            this.Text = "Northwind: Dashboard";
             this.Load += new System.EventHandler(this.OnLoad);
             this.tlpDashboard.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -866,11 +1091,18 @@
             this.tabDashboard.ResumeLayout(false);
             this.tabTerminal.ResumeLayout(false);
             this.tabComponents.ResumeLayout(false);
+            this.gbObjects.ResumeLayout(false);
             this.tlpComponents.ResumeLayout(false);
             this.tlpComponents.PerformLayout();
-            this.gbObjects.ResumeLayout(false);
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
+            this.tabTransaction.ResumeLayout(false);
+            this.tlpTransaction.ResumeLayout(false);
+            this.gbOrder.ResumeLayout(false);
+            this.tlpOrder.ResumeLayout(false);
+            this.gbProduct.ResumeLayout(false);
+            this.tlpProduct.ResumeLayout(false);
+            this.tlpProduct.PerformLayout();
             this.tlpMain.ResumeLayout(false);
             this.tlpMain.PerformLayout();
             this.StatusBar.ResumeLayout(false);
@@ -938,6 +1170,21 @@
         private System.Windows.Forms.Button btnInstallIngressController;
         private System.Windows.Forms.Button btnUninstallIngressController;
         private System.Windows.Forms.Button btnUninstallMesh;
+        private System.Windows.Forms.TabPage tabTransaction;
+        private System.Windows.Forms.TableLayoutPanel tlpTransaction;
+        private System.Windows.Forms.RichTextBox txtResponse;
+        private System.Windows.Forms.GroupBox gbOrder;
+        private System.Windows.Forms.ComboBox cbProducts;
+        private System.Windows.Forms.Button btnSubmitOrder;
+        private System.Windows.Forms.ComboBox cbPayment;
+        private System.Windows.Forms.ComboBox cbArea;
+        private System.Windows.Forms.TableLayoutPanel tlpOrder;
+        private System.Windows.Forms.GroupBox gbProduct;
+        private System.Windows.Forms.TableLayoutPanel tlpProduct;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnProductSearch;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

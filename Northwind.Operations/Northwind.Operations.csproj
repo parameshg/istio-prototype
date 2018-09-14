@@ -58,31 +58,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWin.CLI.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>MainWin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWin.Events.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>MainWin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\OrderRequest.cs" />
     <Compile Include="Model\OrderResponse.cs" />
     <Compile Include="Model\ProductDetail.cs" />
-    <Compile Include="Provisioner.cs">
+    <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Provisioner.Designer.cs">
-      <DependentUpon>Provisioner.cs</DependentUpon>
+    <Compile Include="MainWin.Designer.cs">
+      <DependentUpon>MainWin.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Response.cs" />
-    <Compile Include="Provisioner.Events.cs">
-      <SubType>Form</SubType>
-      <DependentUpon>Provisioner.cs</DependentUpon>
-    </Compile>
     <Compile Include="Services\Transaction.cs" />
-    <Compile Include="TrafficGenerator.cs">
+    <Compile Include="Users.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TrafficGenerator.Designer.cs">
-      <DependentUpon>TrafficGenerator.cs</DependentUpon>
+    <Compile Include="Users.Designer.cs">
+      <DependentUpon>Users.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Provisioner.resx">
-      <DependentUpon>Provisioner.cs</DependentUpon>
+    <EmbeddedResource Include="MainWin.resx">
+      <DependentUpon>MainWin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -93,8 +97,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TrafficGenerator.resx">
-      <DependentUpon>TrafficGenerator.cs</DependentUpon>
+    <EmbeddedResource Include="Users.resx">
+      <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Kubernetes\address-v1-deployment.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

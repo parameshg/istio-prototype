@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.Windows.Forms;
+using Northwind.Operations.Model;
 using RestSharp;
 
 namespace Northwind.Operations
 {
-    partial class Provisioner
+    partial class MainWin
     {
         private RestClient Api { get { return new RestClient(ConfigurationManager.AppSettings["api"]); } }
 
@@ -64,6 +67,18 @@ namespace Northwind.Operations
                 string address = string.Empty;
 
                 lstObjects.Items.Add(new ListViewItem(new string[] { ns, kind, name, address }));
+            }
+
+            var response = Api.Execute<List<ProductDetail>>(new RestRequest("/products/search?q=a", Method.GET));
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                foreach (var i in response.Data)
+                {
+                    cbProducts.Items.Add(i);
+                    cbProducts.DisplayMember = "Name";
+                    cbProducts.ValueMember = "Id";
+                }
             }
         }
 
