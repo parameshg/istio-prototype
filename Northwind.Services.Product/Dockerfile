@@ -9,10 +9,10 @@ COPY Northwind.Services.Product/Northwind.Services.Product.csproj Northwind.Serv
 RUN dotnet restore -nowarn:msb3202,nu1503
 COPY . .
 WORKDIR /src/Northwind.Services.Product
-RUN dotnet build -c Release -o /app
+RUN dotnet build -c Debug -o /app
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app
+RUN dotnet publish -c Debug -o /app
 
 FROM base AS final
 WORKDIR /app
