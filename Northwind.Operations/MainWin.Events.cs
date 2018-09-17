@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Net;
 using System.Windows.Forms;
 using Northwind.Operations.Model;
+using Northwind.Services.Shared;
 using RestSharp;
 
 namespace Northwind.Operations
@@ -69,11 +70,13 @@ namespace Northwind.Operations
                 lstObjects.Items.Add(new ListViewItem(new string[] { ns, kind, name, address }));
             }
 
-            var response = Api.Execute<List<ProductDetail>>(new RestRequest("/products/search?q=a", Method.GET));
+            var response = Api.Execute<Response<List<ProductDetail>>>(new RestRequest("/products/search?q=a", Method.GET));
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                foreach (var i in response.Data)
+                cbProducts.Items.Clear();
+
+                foreach (var i in response.Data.Data)
                 {
                     cbProducts.Items.Add(i);
                     cbProducts.DisplayMember = "Name";

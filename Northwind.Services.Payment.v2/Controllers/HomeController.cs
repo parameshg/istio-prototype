@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Northwind.Services.Shared;
 
 namespace Northwind.Services.Payment.v2.Controllers
 {
     public class HomeController : Controller
     {
-
         [HttpGet("")]
-        public ActionResult Index()
+        public Response Index()
         {
-            return new OkObjectResult(new { api = "payment", version = 2, timestamp = DateTime.Now });
+            return new Response("payment", 2);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Northwind.Services.Product.Model;
+using Northwind.Services.Shared;
 
 namespace NorthWind.Services.Product.Controllers
 {
@@ -49,14 +50,20 @@ namespace NorthWind.Services.Product.Controllers
 
         #endregion Seed Products
 
-        [HttpGet("products/{id}")]
-        public ProductDetail GetProductById(string id)
+        [HttpGet("products")]
+        public Response Index()
         {
-            ProductDetail result = null;
+            return new Response("product/get", 1);
+        }
+
+        [HttpGet("products/{id}")]
+        public Response<ProductDetail> GetProductById(string id)
+        {
+            var result = new Response<ProductDetail>("product/detail", 1);
 
             try
             {
-                result = Products.SingleOrDefault(i => i.Id.Equals(Guid.Parse(id)));
+                result.Data = Products.SingleOrDefault(i => i.Id.Equals(Guid.Parse(id)));
             }
             catch
             {
@@ -67,14 +74,16 @@ namespace NorthWind.Services.Product.Controllers
         }
 
         [HttpGet("search")]
-        public List<ProductDetail> SearchProducts(string q)
+        public Response<List<ProductDetail>> SearchProducts(string q)
         {
-            var result = new List<ProductDetail>();
+            var result = new Response<List<ProductDetail>>("product/search", 1);
+
+            result.Data = new List<ProductDetail>();
 
             try
             {
                 if (!string.IsNullOrEmpty(q))
-                    result.AddRange(Products.Where(i => i.Name.ToLower().Contains(q.ToLower())).ToList());
+                    result.Data.AddRange(Products.Where(i => i.Name.ToLower().Contains(q.ToLower())).ToList());
             }
             catch
             {

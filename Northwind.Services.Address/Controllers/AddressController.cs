@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Northwind.Services.Address.Model;
+using Northwind.Services.Shared;
 
 namespace NorthWind.Services.Address.Controllers
 {
@@ -26,25 +27,33 @@ namespace NorthWind.Services.Address.Controllers
             Area.Add((2204, 2204));
         }
 
-        [HttpPost("validate")]
-        public ValidationResponse Post([FromBody] ValidationRequest request)
+        [HttpGet("validate")]
+        public Response Index()
         {
-            var result = new ValidationResponse();
+            return new Response("address/validate", 1);
+        }
+
+        [HttpPost("validate")]
+        public Response<ValidationResponse> Post([FromBody] ValidationRequest request)
+        {
+            var result = new Response<ValidationResponse>("address/validate", 1);
+
+            result.Data = new ValidationResponse();
 
             try
             {
-                result.Status = !string.IsNullOrEmpty(request.Address) && request.Country.ToLower().Equals("australia");
+                result.Data.Status = !string.IsNullOrEmpty(request.Address) && request.Country.ToLower().Equals("australia");
 
-                if (result.Status)
-                    result.Status = Area.Where(i => request.Zip >= i.From && request.Zip <= i.To).Count() >= 1;
+                if (result.Data.Status)
+                    result.Data.Status = Area.Where(i => request.Zip >= i.From && request.Zip <= i.To).Count() >= 1;
 
-                if (!result.Status)
-                    result.Message = "address not valid or supported. currently supporting only australian areas of central and northen sydney";
+                if (!result.Data.Status)
+                    result.Data.Message = "address not valid or supported. currently supporting only australian areas of central and northen sydney";
             }
             catch (Exception e)
             {
-                result.Status = false;
-                result.Message = e.Message;
+                result.Data.Status = false;
+                result.Data.Message = e.Message;
             }
 
             return result;

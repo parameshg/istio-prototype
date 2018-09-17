@@ -69,6 +69,8 @@
             this.btnUninstallIngress = new System.Windows.Forms.Button();
             this.btnInstallIngressController = new System.Windows.Forms.Button();
             this.btnUninstallIngressController = new System.Windows.Forms.Button();
+            this.btnDeployAllApi = new System.Windows.Forms.Button();
+            this.btnRollbackAllApi = new System.Windows.Forms.Button();
             this.tabCtrlMain = new System.Windows.Forms.TabControl();
             this.tabDashboard = new System.Windows.Forms.TabPage();
             this.tabTerminal = new System.Windows.Forms.TabPage();
@@ -232,6 +234,7 @@
             this.cbAddressApiImage.Name = "cbAddressApiImage";
             this.cbAddressApiImage.Size = new System.Drawing.Size(218, 24);
             this.cbAddressApiImage.TabIndex = 1;
+            this.cbAddressApiImage.Tag = "address";
             // 
             // btnRollbackAddressApi
             // 
@@ -300,6 +303,7 @@
             this.cbPaymentApiImage.Name = "cbPaymentApiImage";
             this.cbPaymentApiImage.Size = new System.Drawing.Size(218, 24);
             this.cbPaymentApiImage.TabIndex = 1;
+            this.cbPaymentApiImage.Tag = "payment";
             // 
             // btnRollbackPaymentApi
             // 
@@ -367,6 +371,7 @@
             this.cbOrderApiImage.Name = "cbOrderApiImage";
             this.cbOrderApiImage.Size = new System.Drawing.Size(218, 24);
             this.cbOrderApiImage.TabIndex = 1;
+            this.cbOrderApiImage.Tag = "order";
             // 
             // btnRollbackOrderApi
             // 
@@ -434,6 +439,7 @@
             this.cbProductApiImage.Name = "cbProductApiImage";
             this.cbProductApiImage.Size = new System.Drawing.Size(218, 24);
             this.cbProductApiImage.TabIndex = 1;
+            this.cbProductApiImage.Tag = "product";
             // 
             // btnRollbackProductApi
             // 
@@ -513,7 +519,7 @@
             this.btnDeploySidecarAddress.Name = "btnDeploySidecarAddress";
             this.btnDeploySidecarAddress.Size = new System.Drawing.Size(182, 31);
             this.btnDeploySidecarAddress.TabIndex = 4;
-            this.btnDeploySidecarAddress.Tag = "address-v1-deployment";
+            this.btnDeploySidecarAddress.Tag = "deployment-address-v1";
             this.btnDeploySidecarAddress.Text = "Install Address Sidecar";
             this.btnDeploySidecarAddress.UseVisualStyleBackColor = true;
             this.btnDeploySidecarAddress.Click += new System.EventHandler(this.OnDeploySidecar);
@@ -526,7 +532,7 @@
             this.btnDeploySidecarPayment.Name = "btnDeploySidecarPayment";
             this.btnDeploySidecarPayment.Size = new System.Drawing.Size(180, 31);
             this.btnDeploySidecarPayment.TabIndex = 3;
-            this.btnDeploySidecarPayment.Tag = "payment-v1-deployment";
+            this.btnDeploySidecarPayment.Tag = "deployment-payment-v1";
             this.btnDeploySidecarPayment.Text = "Install Payment Sidecar";
             this.btnDeploySidecarPayment.UseVisualStyleBackColor = true;
             this.btnDeploySidecarPayment.Click += new System.EventHandler(this.OnDeploySidecar);
@@ -539,7 +545,7 @@
             this.btnDeploySidecarOrder.Name = "btnDeploySidecarOrder";
             this.btnDeploySidecarOrder.Size = new System.Drawing.Size(180, 31);
             this.btnDeploySidecarOrder.TabIndex = 2;
-            this.btnDeploySidecarOrder.Tag = "order-v1-deployment";
+            this.btnDeploySidecarOrder.Tag = "deployment-order-v1";
             this.btnDeploySidecarOrder.Text = "Install Order Sidecar";
             this.btnDeploySidecarOrder.UseVisualStyleBackColor = true;
             this.btnDeploySidecarOrder.Click += new System.EventHandler(this.OnDeploySidecar);
@@ -552,7 +558,7 @@
             this.btnDeployMesh.Name = "btnDeployMesh";
             this.btnDeployMesh.Size = new System.Drawing.Size(180, 31);
             this.btnDeployMesh.TabIndex = 0;
-            this.btnDeployMesh.Text = "Install Istio System";
+            this.btnDeployMesh.Text = "Install Istio";
             this.btnDeployMesh.UseVisualStyleBackColor = true;
             this.btnDeployMesh.Click += new System.EventHandler(this.OnDeployMesh);
             // 
@@ -564,7 +570,7 @@
             this.btnDeploySidecarProduct.Name = "btnDeploySidecarProduct";
             this.btnDeploySidecarProduct.Size = new System.Drawing.Size(180, 31);
             this.btnDeploySidecarProduct.TabIndex = 1;
-            this.btnDeploySidecarProduct.Tag = "product-v1-deployment";
+            this.btnDeploySidecarProduct.Tag = "deployment-product-v1";
             this.btnDeploySidecarProduct.Text = "Install Product Sidecar";
             this.btnDeploySidecarProduct.UseVisualStyleBackColor = true;
             this.btnDeploySidecarProduct.Click += new System.EventHandler(this.OnDeploySidecar);
@@ -624,6 +630,8 @@
             this.tlpKubeObject.Controls.Add(this.btnUninstallIngress, 1, 1);
             this.tlpKubeObject.Controls.Add(this.btnInstallIngressController, 0, 0);
             this.tlpKubeObject.Controls.Add(this.btnUninstallIngressController, 0, 1);
+            this.tlpKubeObject.Controls.Add(this.btnDeployAllApi, 2, 0);
+            this.tlpKubeObject.Controls.Add(this.btnRollbackAllApi, 2, 1);
             this.tlpKubeObject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpKubeObject.Location = new System.Drawing.Point(3, 16);
             this.tlpKubeObject.Margin = new System.Windows.Forms.Padding(0);
@@ -663,7 +671,7 @@
             this.btnInstallIngressController.Name = "btnInstallIngressController";
             this.btnInstallIngressController.Size = new System.Drawing.Size(180, 31);
             this.btnInstallIngressController.TabIndex = 3;
-            this.btnInstallIngressController.Text = "Install Ingress Controlle";
+            this.btnInstallIngressController.Text = "Install Ingress Controller";
             this.btnInstallIngressController.UseVisualStyleBackColor = true;
             // 
             // btnUninstallIngressController
@@ -675,6 +683,28 @@
             this.btnUninstallIngressController.TabIndex = 4;
             this.btnUninstallIngressController.Text = "Uninstall Ingress Controller";
             this.btnUninstallIngressController.UseVisualStyleBackColor = true;
+            // 
+            // btnDeployAllApi
+            // 
+            this.btnDeployAllApi.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeployAllApi.Location = new System.Drawing.Point(375, 3);
+            this.btnDeployAllApi.Name = "btnDeployAllApi";
+            this.btnDeployAllApi.Size = new System.Drawing.Size(180, 31);
+            this.btnDeployAllApi.TabIndex = 5;
+            this.btnDeployAllApi.Text = "Deploy All Apis";
+            this.btnDeployAllApi.UseVisualStyleBackColor = true;
+            this.btnDeployAllApi.Click += new System.EventHandler(this.OnDeployAllApi);
+            // 
+            // btnRollbackAllApi
+            // 
+            this.btnRollbackAllApi.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRollbackAllApi.Location = new System.Drawing.Point(375, 40);
+            this.btnRollbackAllApi.Name = "btnRollbackAllApi";
+            this.btnRollbackAllApi.Size = new System.Drawing.Size(180, 32);
+            this.btnRollbackAllApi.TabIndex = 6;
+            this.btnRollbackAllApi.Text = "Rollback All Apis";
+            this.btnRollbackAllApi.UseVisualStyleBackColor = true;
+            this.btnRollbackAllApi.Click += new System.EventHandler(this.OnRollbackAllApi);
             // 
             // tabCtrlMain
             // 
@@ -875,7 +905,7 @@
             this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlpOrder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tlpOrder.Controls.Add(this.btnSubmitOrder, 3, 0);
             this.tlpOrder.Controls.Add(this.cbProducts, 0, 0);
             this.tlpOrder.Controls.Add(this.cbPayment, 1, 0);
@@ -894,7 +924,7 @@
             // 
             this.btnSubmitOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSubmitOrder.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmitOrder.Location = new System.Drawing.Point(740, 3);
+            this.btnSubmitOrder.Location = new System.Drawing.Point(739, 3);
             this.btnSubmitOrder.Name = "btnSubmitOrder";
             this.btnSubmitOrder.Size = new System.Drawing.Size(94, 29);
             this.btnSubmitOrder.TabIndex = 1;
@@ -910,7 +940,7 @@
             this.cbProducts.FormattingEnabled = true;
             this.cbProducts.Location = new System.Drawing.Point(3, 3);
             this.cbProducts.Name = "cbProducts";
-            this.cbProducts.Size = new System.Drawing.Size(363, 27);
+            this.cbProducts.Size = new System.Drawing.Size(362, 27);
             this.cbProducts.TabIndex = 0;
             // 
             // cbPayment
@@ -927,7 +957,7 @@
             "DinersClub",
             "Discover",
             "Rupay"});
-            this.cbPayment.Location = new System.Drawing.Point(372, 3);
+            this.cbPayment.Location = new System.Drawing.Point(371, 3);
             this.cbPayment.Name = "cbPayment";
             this.cbPayment.Size = new System.Drawing.Size(178, 27);
             this.cbPayment.TabIndex = 2;
@@ -942,7 +972,7 @@
             "Central and Northern Sydney",
             "Western Sydney and Blue Mountains",
             "Greystanes - 2145 (Western Sydney)"});
-            this.cbArea.Location = new System.Drawing.Point(556, 3);
+            this.cbArea.Location = new System.Drawing.Point(555, 3);
             this.cbArea.Name = "cbArea";
             this.cbArea.Size = new System.Drawing.Size(178, 27);
             this.cbArea.TabIndex = 3;
@@ -951,9 +981,9 @@
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(840, 3);
+            this.button2.Location = new System.Drawing.Point(839, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(95, 29);
+            this.button2.Size = new System.Drawing.Size(96, 29);
             this.button2.TabIndex = 4;
             this.button2.Text = "Health";
             this.button2.UseVisualStyleBackColor = true;
@@ -1059,13 +1089,13 @@
             this.StatusMessage.Text = "Ready";
             this.StatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Provisioner
+            // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(964, 661);
             this.Controls.Add(this.tlpMain);
-            this.Name = "Provisioner";
+            this.Name = "MainWin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Northwind: Dashboard";
             this.Load += new System.EventHandler(this.OnLoad);
@@ -1185,6 +1215,8 @@
         private System.Windows.Forms.Button btnProductSearch;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDeployAllApi;
+        private System.Windows.Forms.Button btnRollbackAllApi;
     }
 }
 

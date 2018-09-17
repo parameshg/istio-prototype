@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Northwind.Services.Order.Model;
+using Northwind.Services.Shared;
 using RestSharp;
 
 namespace NorthWind.Services.Order.Controllers
@@ -16,10 +18,19 @@ namespace NorthWind.Services.Order.Controllers
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpPost("order")]
-        public OrderResponse Post([FromBody] OrderRequest order)
+        [HttpGet("order")]
+        public Response Index()
         {
-            var result = new OrderResponse();
+            return new Response("order/submit", 1);
+        }
+
+        [HttpPost("order")]
+        public Response<OrderResponse> Post([FromBody] OrderRequest order)
+        {
+            var result = new Response<OrderResponse>("order/submit", 1);
+
+            result.Downstream = new List<Response>();
+            result.Data = new OrderResponse();
 
             try
             {
@@ -33,17 +44,18 @@ namespace NorthWind.Services.Order.Controllers
                     request.RequestFormat = DataFormat.Json;
                     request.AddBody(new { CreditCardNumber = order.Payment });
 
-                    var response = payment.Execute<ValidationResponse>(request);
+                    var response = payment.Execute<Response<ValidationResponse>>(request);
                     Logger.LogDebug(response.Content);
 
-                    if (response != null && response.Data != null)
+                    if (response != null && response.Data != null && response.Data.Data != null)
                     {
-                        result.Status = response.Data.Status;
-                        result.Message = response.Data.Message;
+                        result.Downstream.Add(response.Data);
+                        result.Data.Status = response.Data.Data.Status;
+                        result.Data.Message = response.Data.Data.Message;
                     }
                 }
 
-                if (result.Status)
+                if (result.Data.Status)
                 {
                     // Validate Address
                     {
@@ -59,18 +71,19 @@ namespace NorthWind.Services.Order.Controllers
                             Zip = order.Zip,
                         });
 
-                        var response = address.Execute<ValidationResponse>(request);
+                        var response = address.Execute<Response<ValidationResponse>>(request);
                         Logger.LogDebug(response.Content);
 
-                        if (response != null && response.Data != null)
+                        if (response != null && response.Data != null && response.Data.Data != null)
                         {
-                            result.Status = response.Data.Status;
-                            result.Message = response.Data.Message;
+                            result.Downstream.Add(response.Data);
+                            result.Data.Status = response.Data.Data.Status;
+                            result.Data.Message = response.Data.Data.Message;
                         }
                     }
                 }
 
-                if (result.Status)
+                if (result.Data.Status)
                 {
                     // Fetch Product
                     {
@@ -78,18 +91,18 @@ namespace NorthWind.Services.Order.Controllers
                         var request = new RestRequest($"/products/{order.Product.ToString()}", Method.GET);
                         Logger.LogDebug($"Executing {request.Method.ToString()} to {product.BaseUrl.ToString()} on {request.Resource}");
 
-                        var response = product.Execute<ProductDetail>(request);
+                        var response = product.Execute<Response<ProductDetail>>(request);
                         Logger.LogDebug(response.Content);
 
-                        result.Total = response.Data.Price * order.Quantity;
+                        result.Data.Total = response.Data.Data.Price * order.Quantity;
                     }
                 }
             }
             catch (Exception e)
             {
-                result.Status = false;
-                result.Message = e.Message;
-                result.Total = -1;
+                result.Data.Status = false;
+                result.Data.Message = e.Message;
+                result.Data.Total = -1;
             }
 
             return result;

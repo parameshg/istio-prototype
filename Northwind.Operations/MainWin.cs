@@ -21,6 +21,22 @@ namespace Northwind.Operations
 
         #region Deployment
 
+        private void OnDeployAllApi(object sender, EventArgs e)
+        {
+            OnDeployApi(btnDeployProductApi, new EventArgs());
+            OnDeployApi(btnDeployOrderApi, new EventArgs());
+            OnDeployApi(btnDeployPaymentApi, new EventArgs());
+            OnDeployApi(btnDeployAddressApi, new EventArgs());
+        }
+
+        private void OnRollbackAllApi(object sender, EventArgs e)
+        {
+            OnRollbackApi(btnRollbackProductApi, new EventArgs());
+            OnRollbackApi(btnRollbackOrderApi, new EventArgs());
+            OnRollbackApi(btnRollbackPaymentApi, new EventArgs());
+            OnRollbackApi(btnRollbackAddressApi, new EventArgs());
+        }
+
         private void OnDeployApi(object sender, EventArgs e)
         {
             var btn = sender as Button;
@@ -29,10 +45,23 @@ namespace Northwind.Operations
             {
                 btn.Enabled = false;
 
-                var version = 1;
+                ComboBox list = null;
 
-                kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\{btn.Tag.ToString()}-v{version}-deployment.yml")}");
-                kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\{btn.Tag.ToString()}-v{version}-service.yml")}");
+                if (cbProductApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbProductApiImage;
+                else if (cbOrderApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbOrderApiImage;
+                else if (cbPaymentApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbPaymentApiImage;
+                else if (cbAddressApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbAddressApiImage;
+                else
+                    list = null;
+
+                var version = list != null ? list.SelectedIndex + 1 : 1;
+
+                kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\deployment-{btn.Tag.ToString()}-v{version}.yml")}");
+                kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\service-{btn.Tag.ToString()}.yml")}");
 
                 btn.Enabled = true;
             }
@@ -48,10 +77,23 @@ namespace Northwind.Operations
             {
                 btn.Enabled = false;
 
-                var version = 1;
+                ComboBox list = null;
 
-                kubectl($@"delete -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\{btn.Tag.ToString()}-v{version}-deployment.yml")}");
-                kubectl($@"delete -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\{btn.Tag.ToString()}-v{version}-service.yml")}");
+                if (cbProductApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbProductApiImage;
+                else if (cbOrderApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbOrderApiImage;
+                else if (cbPaymentApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbPaymentApiImage;
+                else if (cbAddressApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                    list = cbAddressApiImage;
+                else
+                    list = null;
+
+                var version = list != null ? list.SelectedIndex + 1 : 1;
+
+                kubectl($@"delete -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\deployment-{btn.Tag.ToString()}-v{version}.yml")}");
+                kubectl($@"delete -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\service-{btn.Tag.ToString()}.yml")}");
 
                 btn.Enabled = true;
             }

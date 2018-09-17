@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Northwind.Services.Shared;
 
 namespace Northwind.Services.Address.v2.Controllers
 {
     public class HomeController : Controller
     {
-
         [HttpGet("")]
-        public ActionResult Index()
+        public Response Index()
         {
-            return new OkObjectResult(new { api = "address", version = 2, timestamp = DateTime.Now });
+            return new Response("address", 2);
         }
     }
 }
