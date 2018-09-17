@@ -1,0 +1,17 @@
+﻿apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: address
+spec:
+  hosts:
+    - address
+  http:
+    - route:
+      - destination:
+          host: address
+          subset: v1
+        weight: 30
+      - destination:
+          host: address
+          subset: v2
+        weight: 70

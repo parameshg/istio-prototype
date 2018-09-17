@@ -1,15 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: payment
+  name: order
   labels:
-    api: payment
-    version: "1"
+    api: order
 spec:
   type: ClusterIP
   selector:
-    api: payment
-    version: "1"
+    api: order
   ports:
     - name: http
       protocol: TCP

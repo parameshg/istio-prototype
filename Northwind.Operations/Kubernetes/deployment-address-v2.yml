@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payment
+  name: address-2
   labels:
-    api: payment
-    version: "1"
+    api: address
+    version: "2"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      api: payment
-      version: "1"
+      api: address
+      version: "2"
   template:
     metadata:
-      name: payment
+      name: address-2
       labels:
-        api: payment
-        version: "1"
+        api: address
+        version: "2"
     spec:
       containers:
-        - name: payment
-          image: parameshg/northwind.payment:v1
+        - name: address
+          image: parameshg/northwind.address:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 80

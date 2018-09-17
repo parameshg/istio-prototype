@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: address
+  name: address-1
   labels:
     api: address
     version: "1"
@@ -13,7 +13,7 @@ spec:
       version: "1"
   template:
     metadata:
-      name: address
+      name: address-1
       labels:
         api: address
         version: "1"

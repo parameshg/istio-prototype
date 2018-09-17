@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order
+  name: address-3
   labels:
-    api: order
-    version: "1"
+    api: address
+    version: "3"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      api: order
-      version: "1"
+      api: address
+      version: "3"
   template:
     metadata:
-      name: order
+      name: address-3
       labels:
-        api: order
-        version: "1"
+        api: address
+        version: "3"
     spec:
       containers:
-        - name: order
-          image: parameshg/northwind.order:v1
+        - name: address
+          image: parameshg/northwind.address:v3
           imagePullPolicy: Always
           ports:
             - containerPort: 80
