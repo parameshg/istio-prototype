@@ -95,5 +95,10 @@ namespace Northwind.Operations
             foreach (ListViewItem i in lstObjects.SelectedItems)
                 Clipboard.SetText(i.SubItems[3].Text);
         }
+
+        private void OnClearTerminal(object sender, EventArgs e)
+        {
+            txtTerminal.Clear();
+        }
     }
 }

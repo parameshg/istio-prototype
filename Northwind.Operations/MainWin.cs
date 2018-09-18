@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using CreditCardValidator;
 using Northwind.Operations.Model;
+using Northwind.Services.Shared;
 using RestSharp;
 
 namespace Northwind.Operations
@@ -23,9 +25,25 @@ namespace Northwind.Operations
 
         private void OnDeployAllApi(object sender, EventArgs e)
         {
+            cbProductApiImage.SelectedIndex = 0;
             OnDeployApi(btnDeployProductApi, new EventArgs());
+
+            cbOrderApiImage.SelectedIndex = 0;
             OnDeployApi(btnDeployOrderApi, new EventArgs());
+
+            cbPaymentApiImage.SelectedIndex = 0;
             OnDeployApi(btnDeployPaymentApi, new EventArgs());
+
+            cbPaymentApiImage.SelectedIndex = 1;
+            OnDeployApi(btnDeployPaymentApi, new EventArgs());
+
+            cbAddressApiImage.SelectedIndex = 0;
+            OnDeployApi(btnDeployAddressApi, new EventArgs());
+
+            cbAddressApiImage.SelectedIndex = 1;
+            OnDeployApi(btnDeployAddressApi, new EventArgs());
+
+            cbAddressApiImage.SelectedIndex = 2;
             OnDeployApi(btnDeployAddressApi, new EventArgs());
         }
 
@@ -45,18 +63,7 @@ namespace Northwind.Operations
             {
                 btn.Enabled = false;
 
-                ComboBox list = null;
-
-                if (cbProductApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
-                    list = cbProductApiImage;
-                else if (cbOrderApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
-                    list = cbOrderApiImage;
-                else if (cbPaymentApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
-                    list = cbPaymentApiImage;
-                else if (cbAddressApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
-                    list = cbAddressApiImage;
-                else
-                    list = null;
+                ComboBox list = GetList(btn);
 
                 var version = list != null ? list.SelectedIndex + 1 : 1;
 
@@ -149,13 +156,115 @@ namespace Northwind.Operations
 
         private void OnDeploySidecar(object sender, EventArgs e)
         {
-            var component = (sender as Button).Tag.ToString();
+            var btn = sender as Button;
 
-            kubectl(@"-n istio-system get configmap istio-sidecar-injector -o=jsonpath='{.data.config}'", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\inject-config.yaml"));
-            kubectl(@"-n istio-system get configmap istio -o=jsonpath='{.data.mesh}'", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\mesh-config.yaml"));
+            if (btn != null)
+            {
+                ComboBox list = GetList(btn);
 
-            istioctl($@"kube-inject --injectConfigFile {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\inject-config.yaml")} --meshConfigFile {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\mesh-config.yaml")} --filename {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\" + component + ".yml")} --output {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\" + component + "-injected.yml")}");
-            kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\" + component + "-injected.yml")}");
+                var version = list != null ? list.SelectedIndex + 1 : 1;
+
+                var component = $"deployment-{btn.Tag.ToString()}-v{version}";
+
+                kubectl(@"-n istio-system get configmap istio-sidecar-injector -o=jsonpath='{.data.config}'", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\inject-config.yaml"));
+                kubectl(@"-n istio-system get configmap istio -o=jsonpath='{.data.mesh}'", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\mesh-config.yaml"));
+
+                istioctl($@"kube-inject --injectConfigFile {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\inject-config.yaml")} --meshConfigFile {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\mesh-config.yaml")} --filename {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\" + component + ".yml")} --output {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\" + component + "-injected.yml")}");
+                kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Kubernetes\" + component + "-injected.yml")}");
+            }
+        }
+
+        private void OnInstallSidecars(object sender, EventArgs e)
+        {
+            cbProductApiImage.SelectedIndex = 0;
+            OnDeploySidecar(btnInstallProductSidecar, new EventArgs());
+
+            cbOrderApiImage.SelectedIndex = 0;
+            OnDeploySidecar(btnInstallOrderSidecar, new EventArgs());
+
+            cbPaymentApiImage.SelectedIndex = 0;
+            OnDeploySidecar(btnInstallPaymentSidecar, new EventArgs());
+
+            cbPaymentApiImage.SelectedIndex = 1;
+            OnDeploySidecar(btnInstallPaymentSidecar, new EventArgs());
+
+            cbAddressApiImage.SelectedIndex = 0;
+            OnDeploySidecar(btnInstallAddressSidecar, new EventArgs());
+
+            cbAddressApiImage.SelectedIndex = 1;
+            OnDeploySidecar(btnInstallAddressSidecar, new EventArgs());
+
+            cbAddressApiImage.SelectedIndex = 2;
+            OnDeploySidecar(btnInstallAddressSidecar, new EventArgs());
+        }
+
+        private void OnUninstallSidecars(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnBlueGreenDeployment(object sender, EventArgs e)
+        {
+            var btn = sender as RadioButton;
+
+            if (btn != null)
+            {
+                var component = string.Empty;
+                var version = 1;
+
+                if (btn.Tag.ToString().Contains("payment"))
+                {
+                    component = "payment";
+
+                    if (btn.Tag.ToString().Contains("1"))
+                        version = 1;
+
+                    if (btn.Tag.ToString().Contains("2"))
+                        version = 2;
+                }
+
+                if (btn.Tag.ToString().Contains("address"))
+                {
+                    component = "address";
+
+                    if (btn.Tag.ToString().Contains("1"))
+                        version = 1;
+
+                    if (btn.Tag.ToString().Contains("2"))
+                        version = 2;
+
+                    if (btn.Tag.ToString().Contains("3"))
+                        version = 3;
+                }
+
+                if (btn.Checked)
+                {
+                    kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\virtual-service-{component}-v{version}.yml")}");
+                    kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\destination-rule-{component}.yml")}");
+
+                    Thread.Sleep(5000);
+                }
+            }
+        }
+
+        private void OnCanaryRelease(object sender, EventArgs e)
+        {
+            var slider = sender as TrackBar;
+
+            if (slider != null)
+            {
+                if (slider.Name.Contains("Payment"))
+                {
+                    kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\Canary\virtual-service-payment-canary-{slider.Value}.yml")}");
+
+                    Thread.Sleep(5000);
+                }
+
+                if (slider.Name.Contains("Address"))
+                {
+
+                }
+            }
         }
 
         #endregion
@@ -207,6 +316,37 @@ namespace Northwind.Operations
             }
         }
 
+        private Response<OrderResponse> SendRequest(OrderRequest order)
+        {
+            Response<OrderResponse> result = null;
+
+            var request = new RestRequest("/orders/order", Method.POST);
+
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(order);
+
+            var response = Api.Execute<Response<OrderResponse>>(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+                result = response.Data;
+
+            return result;
+        }
+
+        private Response<List<ProductDetail>> Search(string pattern)
+        {
+            Response<List<ProductDetail>> result = null;
+
+            var request = new RestRequest($"/products/search?q={pattern}", Method.GET);
+
+            var response = Api.Execute<Response<List<ProductDetail>>>(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+                result = response.Data;
+
+            return result;
+        }
+
         private void OnOrderSubmitted(object sender, EventArgs e)
         {
             new Action<string, OrderRequest>(SendRequest).BeginInvoke($"/orders/order", new OrderRequest()
@@ -216,18 +356,18 @@ namespace Northwind.Operations
                 Address = "Unit 1, 100 John Street, Sydney",
                 Quantity = rnd.Next(1, 9),
                 Payment = CreditCardFactory.RandomCardNumber((CardIssuer)Enum.Parse(typeof(CardIssuer), cbPayment.SelectedItem.ToString())),
-                Zip = GetZip(),
+                Zip = GetZip(cbArea.SelectedItem.ToString()),
                 Country = "Australia"
             }, null, null);
         }
 
-        private string GetZip()
+        private string GetZip(string area)
         {
             var result = string.Empty;
 
             var region = new List<(int From, int To)>();
 
-            if (cbArea.SelectedItem.ToString() == "Central and Northern Sydney")
+            if (area == "Central and Northern Sydney")
             {
                 region.Add((2000, 2019));
                 region.Add((2021, 2037));
@@ -241,7 +381,7 @@ namespace Northwind.Operations
                 region.Add((2204, 2204));
             }
 
-            if (cbArea.SelectedItem.ToString() == "Western Sydney and Blue Mountains")
+            if (area == "Western Sydney and Blue Mountains")
             {
                 region.Add((2038, 2041));
                 region.Add((2045, 2047));
@@ -255,16 +395,140 @@ namespace Northwind.Operations
                 region.Add((2753, 2786));
             }
 
-            if (cbArea.SelectedItem.ToString() == "Greystanes - 2145 (Western Sydney)")
+            if (area == "Greystanes - 2145 (Western Sydney)")
                 region.Add((2144, 2158));
 
             if (region.Count > 0)
             {
-                var area = region[rnd.Next(0, region.Count - 1)];
-                result = rnd.Next(area.From, area.To).ToString();
+                var code = region[rnd.Next(0, region.Count - 1)];
+                result = rnd.Next(code.From, code.To).ToString();
             }
 
             return result;
+        }
+
+        private ComboBox GetList(Button btn)
+        {
+            ComboBox result = null;
+
+            if (cbProductApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                result = cbProductApiImage;
+            else if (cbOrderApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                result = cbOrderApiImage;
+            else if (cbPaymentApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                result = cbPaymentApiImage;
+            else if (cbAddressApiImage.Tag.ToString().Equals(btn.Tag.ToString()))
+                result = cbAddressApiImage;
+            else
+                result = null;
+
+            return result;
+        }
+
+        private void OnSubmitTestOrders(object sender, EventArgs e)
+        {
+            txtRequestSent.Text = "0";
+            txtRequestPassed.Text = "0";
+            txtRequestFailed.Text = "0";
+
+            txtPayment1.Text = "0";
+            txtPayment2.Text = "0";
+
+            txtAddress1.Text = "0";
+            txtAddress2.Text = "0";
+            txtAddress3.Text = "0";
+
+            var tester = new Tester();
+
+            tester.RequestSent += (object from, EventArgs args) =>
+            {
+                pbTestProgress.Value++;
+
+                txtRequestSent.Text = pbTestProgress.Value.ToString();
+            };
+
+            tester.RequestPassed += (object from, EventArgs args) =>
+            {
+                var count = int.Parse(txtRequestPassed.Text);
+
+                count++;
+
+                txtRequestPassed.Text = count.ToString();
+
+                Application.DoEvents();
+            };
+
+            tester.RequestFailed += (object from, EventArgs args) =>
+            {
+                var count = int.Parse(txtRequestFailed.Text);
+
+                count++;
+
+                txtRequestFailed.Text = count.ToString();
+
+                Application.DoEvents();
+            };
+
+            tester.RequestProcessedByPaymentServer1 += (object from, EventArgs args) =>
+            {
+                var count = int.Parse(txtPayment1.Text);
+
+                count++;
+
+                txtPayment1.Text = count.ToString();
+
+                Application.DoEvents();
+            };
+
+            tester.RequestProcessedByPaymentServer2 += (object from, EventArgs args) =>
+            {
+                var count = int.Parse(txtPayment2.Text);
+
+                count++;
+
+                txtPayment2.Text = count.ToString();
+
+                Application.DoEvents();
+            };
+
+            tester.RequestProcessedByAddressServer1 += (object from, EventArgs args) =>
+            {
+                var count = int.Parse(txtAddress1.Text);
+
+                count++;
+
+                txtAddress1.Text = count.ToString();
+
+                Application.DoEvents();
+            };
+
+            tester.RequestProcessedByAddressServer2 += (object from, EventArgs args) =>
+            {
+                var count = int.Parse(txtAddress2.Text);
+
+                count++;
+
+                txtAddress2.Text = count.ToString();
+
+                Application.DoEvents();
+            };
+
+            tester.RequestProcessedByAddressServer3 += (object from, EventArgs args) =>
+            {
+                var count = int.Parse(txtAddress3.Text);
+
+                count++;
+
+                txtAddress3.Text = count.ToString();
+
+                Application.DoEvents();
+            };
+
+            pbTestProgress.Value = 0;
+            pbTestProgress.Minimum = 0;
+            pbTestProgress.Maximum = Convert.ToInt32(nOrders.Value);
+
+            tester.Execute(cbPaymentTest.SelectedItem.ToString(), cbAddressTest.SelectedItem.ToString(), Convert.ToInt32(nOrders.Value));
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Northwind.Operations
         {
             dynamic result = null;
 
-            txtTerminal.AppendText($"kubectl {args} --all-namespaces -o json");
-            txtTerminal.AppendText(Environment.NewLine);
+            //txtTerminal.AppendText($"kubectl {args} --all-namespaces -o json");
+            //txtTerminal.AppendText(Environment.NewLine);
 
             using (var kubectl = new Process())
             {
@@ -25,7 +25,7 @@ namespace Northwind.Operations
                 kubectl.Start();
 
                 result = JsonConvert.DeserializeObject(kubectl.StandardOutput.ReadToEnd());
-                txtTerminal.AppendText(Environment.NewLine);
+                //txtTerminal.AppendText(Environment.NewLine);
 
                 kubectl.WaitForExit();
             }
@@ -33,8 +33,11 @@ namespace Northwind.Operations
             return result;
         }
 
-        private void kubectl(string args)
+        private void kubectl(string args, bool validate = true)
         {
+            if (!validate)
+                args += " --validate=false";
+
             txtTerminal.AppendText($"kubectl {args}");
             txtTerminal.AppendText(Environment.NewLine);
 
