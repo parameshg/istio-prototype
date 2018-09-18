@@ -7,5 +7,4 @@ spec:
   subsets:
   - name: v1
     labels:
-      api: product
       version: "1"
