@@ -20,8 +20,8 @@ This prototype aims to demonstrate the following features of Istio Service Mesh.
 
 ## Demo User Interfaces
 
-![Installation and Configuration](.\Images\dashboard.png "Installation and Configuration")
+![Installation and Configuration](https://raw.githubusercontent.com/parameshg/northwind-mesh/master/Images/dashboard.png "Installation and Configuration")
 
-![Features](.\Images\features.png "Features")
+![Features](https://raw.githubusercontent.com/parameshg/northwind-mesh/master/Images/features.png "Features")
 
-![Transaction](.\Images\transaction.png "Transaction")
+![Transaction](https://raw.githubusercontent.com/parameshg/northwind-mesh/master/Images/transaction.png "Transaction")
