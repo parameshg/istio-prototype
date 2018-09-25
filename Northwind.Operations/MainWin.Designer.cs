@@ -122,9 +122,15 @@
             this.rbtnPaymentVersion2 = new System.Windows.Forms.RadioButton();
             this.rbtnPaymentVersion1 = new System.Windows.Forms.RadioButton();
             this.gbPaymentCanaryRelease = new System.Windows.Forms.GroupBox();
-            this.tbPaymentCanaryRelease = new System.Windows.Forms.TrackBar();
+            this.tlpCanaryRelease = new System.Windows.Forms.TableLayoutPanel();
+            this.tbCanaryRelease = new System.Windows.Forms.TrackBar();
+            this.lblCanaryPercent = new System.Windows.Forms.Label();
+            this.btnDeployCanaryRelease = new System.Windows.Forms.Button();
             this.gbAddressCanaryRelease = new System.Windows.Forms.GroupBox();
-            this.tbAddressCanaryRelease = new System.Windows.Forms.TrackBar();
+            this.tlpFaultInjection = new System.Windows.Forms.TableLayoutPanel();
+            this.tbFaultPercent = new System.Windows.Forms.TrackBar();
+            this.lblFaultPercent = new System.Windows.Forms.Label();
+            this.btnInjectFault = new System.Windows.Forms.Button();
             this.gbTest = new System.Windows.Forms.GroupBox();
             this.tlpFeaturesTest = new System.Windows.Forms.TableLayoutPanel();
             this.tlpOrderFeatureTest = new System.Windows.Forms.TableLayoutPanel();
@@ -151,6 +157,7 @@
             this.gbRequestSent = new System.Windows.Forms.GroupBox();
             this.txtRequestSent = new System.Windows.Forms.TextBox();
             this.pbTestProgress = new System.Windows.Forms.ProgressBar();
+            this.txtTestLogs = new System.Windows.Forms.RichTextBox();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.StatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -193,9 +200,11 @@
             this.pnlPaymentVersions.SuspendLayout();
             this.tlpPaymentVersions.SuspendLayout();
             this.gbPaymentCanaryRelease.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbPaymentCanaryRelease)).BeginInit();
+            this.tlpCanaryRelease.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbCanaryRelease)).BeginInit();
             this.gbAddressCanaryRelease.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbAddressCanaryRelease)).BeginInit();
+            this.tlpFaultInjection.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbFaultPercent)).BeginInit();
             this.gbTest.SuspendLayout();
             this.tlpFeaturesTest.SuspendLayout();
             this.tlpOrderFeatureTest.SuspendLayout();
@@ -1425,7 +1434,7 @@
             // 
             // gbPaymentCanaryRelease
             // 
-            this.gbPaymentCanaryRelease.Controls.Add(this.tbPaymentCanaryRelease);
+            this.gbPaymentCanaryRelease.Controls.Add(this.tlpCanaryRelease);
             this.gbPaymentCanaryRelease.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbPaymentCanaryRelease.Location = new System.Drawing.Point(3, 78);
             this.gbPaymentCanaryRelease.Name = "gbPaymentCanaryRelease";
@@ -1434,43 +1443,129 @@
             this.gbPaymentCanaryRelease.TabStop = false;
             this.gbPaymentCanaryRelease.Text = "Canary Release: Payment";
             // 
-            // tbPaymentCanaryRelease
+            // tlpCanaryRelease
             // 
-            this.tbPaymentCanaryRelease.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbPaymentCanaryRelease.LargeChange = 10;
-            this.tbPaymentCanaryRelease.Location = new System.Drawing.Point(3, 16);
-            this.tbPaymentCanaryRelease.Maximum = 100;
-            this.tbPaymentCanaryRelease.Name = "tbPaymentCanaryRelease";
-            this.tbPaymentCanaryRelease.Size = new System.Drawing.Size(958, 50);
-            this.tbPaymentCanaryRelease.SmallChange = 10;
-            this.tbPaymentCanaryRelease.TabIndex = 0;
-            this.tbPaymentCanaryRelease.TickFrequency = 10;
-            this.tbPaymentCanaryRelease.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.tbPaymentCanaryRelease.ValueChanged += new System.EventHandler(this.OnCanaryRelease);
+            this.tlpCanaryRelease.ColumnCount = 3;
+            this.tlpCanaryRelease.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpCanaryRelease.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tlpCanaryRelease.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlpCanaryRelease.Controls.Add(this.tbCanaryRelease, 0, 0);
+            this.tlpCanaryRelease.Controls.Add(this.lblCanaryPercent, 1, 0);
+            this.tlpCanaryRelease.Controls.Add(this.btnDeployCanaryRelease, 2, 0);
+            this.tlpCanaryRelease.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpCanaryRelease.Location = new System.Drawing.Point(3, 16);
+            this.tlpCanaryRelease.Margin = new System.Windows.Forms.Padding(0);
+            this.tlpCanaryRelease.Name = "tlpCanaryRelease";
+            this.tlpCanaryRelease.RowCount = 1;
+            this.tlpCanaryRelease.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpCanaryRelease.Size = new System.Drawing.Size(958, 50);
+            this.tlpCanaryRelease.TabIndex = 1;
+            // 
+            // tbCanaryRelease
+            // 
+            this.tbCanaryRelease.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbCanaryRelease.LargeChange = 10;
+            this.tbCanaryRelease.Location = new System.Drawing.Point(3, 3);
+            this.tbCanaryRelease.Maximum = 100;
+            this.tbCanaryRelease.Name = "tbCanaryRelease";
+            this.tbCanaryRelease.Size = new System.Drawing.Size(802, 44);
+            this.tbCanaryRelease.SmallChange = 10;
+            this.tbCanaryRelease.TabIndex = 0;
+            this.tbCanaryRelease.TickFrequency = 10;
+            this.tbCanaryRelease.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.tbCanaryRelease.ValueChanged += new System.EventHandler(this.OnCanaryPercent);
+            // 
+            // lblCanaryPercent
+            // 
+            this.lblCanaryPercent.AutoSize = true;
+            this.lblCanaryPercent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCanaryPercent.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCanaryPercent.Location = new System.Drawing.Point(811, 0);
+            this.lblCanaryPercent.Name = "lblCanaryPercent";
+            this.lblCanaryPercent.Size = new System.Drawing.Size(44, 50);
+            this.lblCanaryPercent.TabIndex = 1;
+            this.lblCanaryPercent.Text = "100%";
+            this.lblCanaryPercent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnDeployCanaryRelease
+            // 
+            this.btnDeployCanaryRelease.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeployCanaryRelease.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeployCanaryRelease.Location = new System.Drawing.Point(861, 3);
+            this.btnDeployCanaryRelease.Name = "btnDeployCanaryRelease";
+            this.btnDeployCanaryRelease.Size = new System.Drawing.Size(94, 44);
+            this.btnDeployCanaryRelease.TabIndex = 2;
+            this.btnDeployCanaryRelease.Text = "Deploy";
+            this.btnDeployCanaryRelease.UseVisualStyleBackColor = true;
+            this.btnDeployCanaryRelease.Click += new System.EventHandler(this.OnCanaryRelease);
             // 
             // gbAddressCanaryRelease
             // 
-            this.gbAddressCanaryRelease.Controls.Add(this.tbAddressCanaryRelease);
+            this.gbAddressCanaryRelease.Controls.Add(this.tlpFaultInjection);
             this.gbAddressCanaryRelease.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbAddressCanaryRelease.Location = new System.Drawing.Point(3, 153);
             this.gbAddressCanaryRelease.Name = "gbAddressCanaryRelease";
             this.gbAddressCanaryRelease.Size = new System.Drawing.Size(964, 69);
             this.gbAddressCanaryRelease.TabIndex = 2;
             this.gbAddressCanaryRelease.TabStop = false;
-            this.gbAddressCanaryRelease.Text = "Canary Release: Address";
+            this.gbAddressCanaryRelease.Text = "Fault Injection: Address";
             // 
-            // tbAddressCanaryRelease
+            // tlpFaultInjection
             // 
-            this.tbAddressCanaryRelease.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbAddressCanaryRelease.LargeChange = 10;
-            this.tbAddressCanaryRelease.Location = new System.Drawing.Point(3, 16);
-            this.tbAddressCanaryRelease.Maximum = 100;
-            this.tbAddressCanaryRelease.Name = "tbAddressCanaryRelease";
-            this.tbAddressCanaryRelease.Size = new System.Drawing.Size(958, 50);
-            this.tbAddressCanaryRelease.SmallChange = 10;
-            this.tbAddressCanaryRelease.TabIndex = 0;
-            this.tbAddressCanaryRelease.TickFrequency = 10;
-            this.tbAddressCanaryRelease.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.tlpFaultInjection.ColumnCount = 3;
+            this.tlpFaultInjection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpFaultInjection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tlpFaultInjection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlpFaultInjection.Controls.Add(this.tbFaultPercent, 0, 0);
+            this.tlpFaultInjection.Controls.Add(this.lblFaultPercent, 1, 0);
+            this.tlpFaultInjection.Controls.Add(this.btnInjectFault, 2, 0);
+            this.tlpFaultInjection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpFaultInjection.Location = new System.Drawing.Point(3, 16);
+            this.tlpFaultInjection.Margin = new System.Windows.Forms.Padding(0);
+            this.tlpFaultInjection.Name = "tlpFaultInjection";
+            this.tlpFaultInjection.RowCount = 1;
+            this.tlpFaultInjection.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpFaultInjection.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tlpFaultInjection.Size = new System.Drawing.Size(958, 50);
+            this.tlpFaultInjection.TabIndex = 1;
+            // 
+            // tbFaultPercent
+            // 
+            this.tbFaultPercent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbFaultPercent.LargeChange = 10;
+            this.tbFaultPercent.Location = new System.Drawing.Point(3, 3);
+            this.tbFaultPercent.Maximum = 100;
+            this.tbFaultPercent.Name = "tbFaultPercent";
+            this.tbFaultPercent.Size = new System.Drawing.Size(802, 44);
+            this.tbFaultPercent.SmallChange = 10;
+            this.tbFaultPercent.TabIndex = 0;
+            this.tbFaultPercent.TickFrequency = 10;
+            this.tbFaultPercent.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.tbFaultPercent.ValueChanged += new System.EventHandler(this.OnFaultPercent);
+            // 
+            // lblFaultPercent
+            // 
+            this.lblFaultPercent.AutoSize = true;
+            this.lblFaultPercent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFaultPercent.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFaultPercent.Location = new System.Drawing.Point(811, 0);
+            this.lblFaultPercent.Name = "lblFaultPercent";
+            this.lblFaultPercent.Size = new System.Drawing.Size(44, 50);
+            this.lblFaultPercent.TabIndex = 1;
+            this.lblFaultPercent.Text = "100%";
+            this.lblFaultPercent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnInjectFault
+            // 
+            this.btnInjectFault.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnInjectFault.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInjectFault.Location = new System.Drawing.Point(861, 3);
+            this.btnInjectFault.Name = "btnInjectFault";
+            this.btnInjectFault.Size = new System.Drawing.Size(94, 44);
+            this.btnInjectFault.TabIndex = 2;
+            this.btnInjectFault.Text = "Inject Fault";
+            this.btnInjectFault.UseVisualStyleBackColor = true;
+            this.btnInjectFault.Click += new System.EventHandler(this.OnFaultInjected);
             // 
             // gbTest
             // 
@@ -1491,6 +1586,7 @@
             this.tlpFeaturesTest.Controls.Add(this.tlpTestPodMetrics, 0, 2);
             this.tlpFeaturesTest.Controls.Add(this.tlpRequestMetrics, 0, 1);
             this.tlpFeaturesTest.Controls.Add(this.pbTestProgress, 0, 4);
+            this.tlpFeaturesTest.Controls.Add(this.txtTestLogs, 0, 3);
             this.tlpFeaturesTest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpFeaturesTest.Location = new System.Drawing.Point(3, 16);
             this.tlpFeaturesTest.Margin = new System.Windows.Forms.Padding(0);
@@ -1837,6 +1933,15 @@
             this.pbTestProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pbTestProgress.TabIndex = 3;
             // 
+            // txtTestLogs
+            // 
+            this.txtTestLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtTestLogs.Location = new System.Drawing.Point(3, 148);
+            this.txtTestLogs.Name = "txtTestLogs";
+            this.txtTestLogs.Size = new System.Drawing.Size(952, 173);
+            this.txtTestLogs.TabIndex = 4;
+            this.txtTestLogs.Text = "";
+            // 
             // tlpMain
             // 
             this.tlpMain.ColumnCount = 1;
@@ -1933,11 +2038,13 @@
             this.tlpPaymentVersions.ResumeLayout(false);
             this.tlpPaymentVersions.PerformLayout();
             this.gbPaymentCanaryRelease.ResumeLayout(false);
-            this.gbPaymentCanaryRelease.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbPaymentCanaryRelease)).EndInit();
+            this.tlpCanaryRelease.ResumeLayout(false);
+            this.tlpCanaryRelease.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbCanaryRelease)).EndInit();
             this.gbAddressCanaryRelease.ResumeLayout(false);
-            this.gbAddressCanaryRelease.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbAddressCanaryRelease)).EndInit();
+            this.tlpFaultInjection.ResumeLayout(false);
+            this.tlpFaultInjection.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbFaultPercent)).EndInit();
             this.gbTest.ResumeLayout(false);
             this.tlpFeaturesTest.ResumeLayout(false);
             this.tlpOrderFeatureTest.ResumeLayout(false);
@@ -2064,9 +2171,9 @@
         private System.Windows.Forms.RadioButton rbtnAddressVersion2;
         private System.Windows.Forms.RadioButton rbtnAddressVersion3;
         private System.Windows.Forms.GroupBox gbPaymentCanaryRelease;
-        private System.Windows.Forms.TrackBar tbPaymentCanaryRelease;
+        private System.Windows.Forms.TrackBar tbCanaryRelease;
         private System.Windows.Forms.GroupBox gbAddressCanaryRelease;
-        private System.Windows.Forms.TrackBar tbAddressCanaryRelease;
+        private System.Windows.Forms.TrackBar tbFaultPercent;
         private System.Windows.Forms.Panel pnlPaymentVersions;
         private System.Windows.Forms.TableLayoutPanel tlpPaymentVersions;
         private System.Windows.Forms.GroupBox gbTest;
@@ -2095,6 +2202,13 @@
         private System.Windows.Forms.TextBox txtRequestPassed;
         private System.Windows.Forms.TextBox txtRequestSent;
         private System.Windows.Forms.ProgressBar pbTestProgress;
+        private System.Windows.Forms.RichTextBox txtTestLogs;
+        private System.Windows.Forms.TableLayoutPanel tlpCanaryRelease;
+        private System.Windows.Forms.Label lblCanaryPercent;
+        private System.Windows.Forms.Button btnDeployCanaryRelease;
+        private System.Windows.Forms.TableLayoutPanel tlpFaultInjection;
+        private System.Windows.Forms.Label lblFaultPercent;
+        private System.Windows.Forms.Button btnInjectFault;
     }
 }
 

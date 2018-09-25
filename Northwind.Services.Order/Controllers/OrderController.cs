@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Northwind.Services.Order.Model;
@@ -45,7 +46,14 @@ namespace NorthWind.Services.Order.Controllers
                     request.AddBody(new { CreditCardNumber = order.Payment });
 
                     var response = payment.Execute<Response<ValidationResponse>>(request);
+
+                    if (response == null)
+                        throw new Exception("payment validation error [null]");
+
                     Logger.LogDebug(response.Content);
+
+                    if (response.StatusCode != HttpStatusCode.OK)
+                        throw new Exception($"payment validation error [{response.StatusCode}]");
 
                     if (response != null && response.Data != null && response.Data.Data != null)
                     {
@@ -72,7 +80,14 @@ namespace NorthWind.Services.Order.Controllers
                         });
 
                         var response = address.Execute<Response<ValidationResponse>>(request);
+
+                        if (response == null)
+                            throw new Exception("address validation error [null]");
+
                         Logger.LogDebug(response.Content);
+
+                        if (response.StatusCode != HttpStatusCode.OK)
+                            throw new Exception($"address validation error [{response.StatusCode}]");
 
                         if (response != null && response.Data != null && response.Data.Data != null)
                         {
@@ -92,7 +107,14 @@ namespace NorthWind.Services.Order.Controllers
                         Logger.LogDebug($"Executing {request.Method.ToString()} to {product.BaseUrl.ToString()} on {request.Resource}");
 
                         var response = product.Execute<Response<ProductDetail>>(request);
+
+                        if (response == null)
+                            throw new Exception("product read error [null]");
+
                         Logger.LogDebug(response.Content);
+
+                        if (response.StatusCode != HttpStatusCode.OK)
+                            throw new Exception($"product read error [{response.StatusCode}]");
 
                         result.Data.Total = response.Data.Data.Price * order.Quantity;
                     }

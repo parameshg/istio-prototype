@@ -212,6 +212,39 @@
     <None Include="Kubernetes\Istio\destination-rule-address.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-0.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-100.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-90.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-80.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-70.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-60.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-50.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-40.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-30.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-20.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Kubernetes\Istio\Fault\virtual-service-address-v3-fault-10.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Kubernetes\Istio\virtual-service-address-v3.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

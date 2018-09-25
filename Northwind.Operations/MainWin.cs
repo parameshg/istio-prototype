@@ -239,32 +239,34 @@ namespace Northwind.Operations
 
                 if (btn.Checked)
                 {
-                    kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\virtual-service-{component}-v{version}.yml")}");
-                    kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\destination-rule-{component}.yml")}");
+                    new Action(() =>
+                    {
+                        kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\virtual-service-{component}-v{version}.yml")}");
+                        kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\destination-rule-{component}.yml")}");
 
-                    Thread.Sleep(5000);
+                        Thread.Sleep(5000);
+
+                    }).BeginInvoke(null, null);
                 }
             }
         }
 
         private void OnCanaryRelease(object sender, EventArgs e)
         {
-            var slider = sender as TrackBar;
+            var percent = tbCanaryRelease.Value / 10 * 10;
 
-            if (slider != null)
-            {
-                if (slider.Name.Contains("Payment"))
-                {
-                    kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\Canary\virtual-service-payment-canary-{slider.Value}.yml")}");
+            kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\Canary\virtual-service-payment-canary-{percent}.yml")}");
 
-                    Thread.Sleep(5000);
-                }
+            Thread.Sleep(5000);
+        }
 
-                if (slider.Name.Contains("Address"))
-                {
+        private void OnFaultInjected(object sender, EventArgs e)
+        {
+            var percent = tbFaultPercent.Value / 10 * 10;
 
-                }
-            }
+            kubectl($@"apply -f {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Kubernetes\Istio\Fault\virtual-service-address-v3-fault-{percent}.yml")}");
+
+            Thread.Sleep(5000);
         }
 
         #endregion
@@ -445,6 +447,8 @@ namespace Northwind.Operations
                 pbTestProgress.Value++;
 
                 txtRequestSent.Text = pbTestProgress.Value.ToString();
+
+                txtTestLogs.AppendText("Sending request...\n");
             };
 
             tester.RequestPassed += (object from, EventArgs args) =>

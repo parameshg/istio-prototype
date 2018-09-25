@@ -1,18 +1,38 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace Northwind.Operations
 {
     partial class MainWin
     {
-        private dynamic kubectlx(string args)
+        private dynamic kubectlj(string args)
         {
             dynamic result = null;
 
-            //txtTerminal.AppendText($"kubectl {args} --all-namespaces -o json");
-            //txtTerminal.AppendText(Environment.NewLine);
+            using (var kubectl = new Process())
+            {
+                kubectl.StartInfo.CreateNoWindow = true;
+                kubectl.StartInfo.FileName = "kubectl.exe";
+                kubectl.StartInfo.Arguments = args + " -o json";
+                kubectl.StartInfo.UseShellExecute = false;
+                kubectl.StartInfo.RedirectStandardOutput = true;
+                kubectl.StartInfo.RedirectStandardError = true;
+                kubectl.Start();
+
+                result = JsonConvert.DeserializeObject(kubectl.StandardOutput.ReadToEnd());
+
+                kubectl.WaitForExit();
+            }
+
+            return result;
+        }
+
+        private dynamic kubectlx(string args)
+        {
+            dynamic result = null;
 
             using (var kubectl = new Process())
             {
@@ -25,7 +45,6 @@ namespace Northwind.Operations
                 kubectl.Start();
 
                 result = JsonConvert.DeserializeObject(kubectl.StandardOutput.ReadToEnd());
-                //txtTerminal.AppendText(Environment.NewLine);
 
                 kubectl.WaitForExit();
             }
@@ -38,8 +57,19 @@ namespace Northwind.Operations
             if (!validate)
                 args += " --validate=false";
 
-            txtTerminal.AppendText($"kubectl {args}");
-            txtTerminal.AppendText(Environment.NewLine);
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    txtTerminal.AppendText($"kubectl {args}");
+                    txtTerminal.AppendText(Environment.NewLine);
+                }));
+            }
+            else
+            {
+                txtTerminal.AppendText($"kubectl {args}");
+                txtTerminal.AppendText(Environment.NewLine);
+            }
 
             using (var kubectl = new Process())
             {
@@ -51,9 +81,21 @@ namespace Northwind.Operations
                 kubectl.StartInfo.RedirectStandardError = true;
                 kubectl.Start();
 
-                txtTerminal.AppendText(kubectl.StandardOutput.ReadToEnd());
-                txtTerminal.AppendText(kubectl.StandardError.ReadToEnd());
-                txtTerminal.AppendText(Environment.NewLine);
+                if (InvokeRequired)
+                {
+                    Invoke(new MethodInvoker(() =>
+                    {
+                        txtTerminal.AppendText(kubectl.StandardOutput.ReadToEnd());
+                        txtTerminal.AppendText(kubectl.StandardError.ReadToEnd());
+                        txtTerminal.AppendText(Environment.NewLine);
+                    }));
+                }
+                else
+                {
+                    txtTerminal.AppendText(kubectl.StandardOutput.ReadToEnd());
+                    txtTerminal.AppendText(kubectl.StandardError.ReadToEnd());
+                    txtTerminal.AppendText(Environment.NewLine);
+                }
 
                 kubectl.WaitForExit();
             }

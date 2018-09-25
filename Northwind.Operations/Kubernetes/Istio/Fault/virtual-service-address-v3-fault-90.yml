@@ -1,0 +1,16 @@
+﻿apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: address
+spec:
+  hosts:
+    - address
+  http:
+    - fault:
+        abort:
+          percent: 90
+          httpStatus: 400
+      route:
+        - destination:
+            host: address
+            subset: v3

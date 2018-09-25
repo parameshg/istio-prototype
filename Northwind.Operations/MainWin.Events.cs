@@ -15,6 +15,10 @@ namespace Northwind.Operations
 
         private void OnLoad(object sender, EventArgs e)
         {
+            dynamic config = kubectlj("config view");
+
+            txtEndpoint.Text = config.clusters[0].cluster.server;
+
             lstObjects.ShowGroups = true;
             lstObjects.Items.Clear();
 
@@ -99,6 +103,16 @@ namespace Northwind.Operations
         private void OnClearTerminal(object sender, EventArgs e)
         {
             txtTerminal.Clear();
+        }
+
+        private void OnCanaryPercent(object sender, EventArgs e)
+        {
+            lblCanaryPercent.Text = $"{tbCanaryRelease.Value}%";
+        }
+
+        private void OnFaultPercent(object sender, EventArgs e)
+        {
+            lblFaultPercent.Text = $"{tbFaultPercent.Value}%";
         }
     }
 }
