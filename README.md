@@ -1,5 +1,7 @@
 # Northwind Microservices and Service Mesh
 
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/parameshg/istio)
+
 ## Introduction
 This project is a prototype implementation of service mesh using istio on kubernetes cluster.
 
